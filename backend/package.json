@@ -1,0 +1,15 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend - Groupomania",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/UserFirstEnd/PedroDosSantos_07_code_072022"
+  },
+  "author": "PDS Claudia",
+  "license": "ISC"
+}
