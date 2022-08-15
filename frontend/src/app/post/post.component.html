@@ -1,0 +1,7 @@
+<div class="post-card" [ngClass]="{ posted: buttonTextLike === 'Oops, unLike!'}">
+    <!--[ngClass] les clés sont les noms de classe CSS à appliquer ; les valeurs sont les conditions qui doivent 
+être remplies pour que les classes correspondantes s'appliquent.-->
+    <h2>{{ post.title | titlecase }}</h2><!--titlecase = pipe-->
+    <p>{{ post.description }}</p>
+    <button (click)="onViewPost()">VIEW</button>
+</div>

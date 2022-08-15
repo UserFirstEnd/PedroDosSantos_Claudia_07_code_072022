@@ -1,0 +1,8 @@
+<header>
+    <h1>post</h1>
+    <nav>
+        <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+        <a routerLink="posts" routerLinkActive="active">Posts</a> <!--comme c'est un enfant de la route vide precedente, nous devons passer l'option, pour que la route ne soit pas active-->
+    </nav>
+    <button (click)="onAddNewPost()">+</button>
+</header>
