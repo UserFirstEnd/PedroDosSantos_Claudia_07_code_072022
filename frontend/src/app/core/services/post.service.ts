@@ -44,11 +44,11 @@ export class PostService {
         );
     }
 
-    addPost(formValue: { title: string, description: string, imageUrl: string, location?: string }): Observable<Post> {
+    addPost(formValue: { id: number, title: string, description: string, imageUrl: string, location?: string }): Observable<Post> {
         return this.getAllPost().pipe(
-             map(posts => [...posts].sort((a,b) => a.id - b.id)),
-             map(sortedPosts => sortedPosts[sortedPosts.length - 1]),
-             map(previousPost => ({
+            map(posts => [...posts].sort((a, b) => a.id - b.id)),
+            map(sortedPosts => sortedPosts[sortedPosts.length - 1]),
+            map(previousPost => ({
                 ...formValue,
                 like: 0,
                 createdDate: new Date(),
@@ -59,6 +59,6 @@ export class PostService {
                 newPost)
             )
         );
-      }
+    }
 
 }

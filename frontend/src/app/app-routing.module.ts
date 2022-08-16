@@ -1,10 +1,11 @@
 //module de routing pour SPA
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from '@angular/router';//permet d'ajouter du routing
-import { LandingPageComponent } from "./landing-page/components/landing-page/landing-page.component"; 
-import { PostListComponent } from "./posts/components/post-list/post-list.component";
-import { SinglePostComponent } from "./posts/components/single-post/single-post.component";
+import { LoginComponent } from "./auth/login/login.component";
+import { SignupComponent } from "./auth/signup/signup.component";
+import { AuthGuard } from "./core/services/auth-guard.service";
 import { NewPostComponent } from "./posts/components/new-post/new-post.component";
+//import { LandingPageComponent } from "./landing-page/components/landing-page/landing-page.component";
 
 /*Un module de routing contient un tableau de type  Routes  qui contient les routes de l'application.
 Une route est un objet de type  { path: 'myPath', component: MyComponent }  qui spécifie 
@@ -15,10 +16,10 @@ On ajoute une balise  <router-outlet>  pour dire à quel niveau du template le c
 Pour ajouter des fichiers statiques à une application (comme des images), on les stocke dans le dossier  assets  .*/
 
 const routes: Routes = [ //nos deux routes
-{ path: 'posts/:id', component: SinglePostComponent},
-{ path: 'posts', component: PostListComponent },
-{ path: 'create', component: NewPostComponent},
-{ path: '', component: LandingPageComponent},
+    { path: 'signup', component: SignupComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'posts', loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule) },//lazing module
+    { path: 'new-post', component: NewPostComponent, canActivate: [AuthGuard] },
 ]
 
 @NgModule({ //faut enregistrer la route sur le router et on ajoute un object de config
@@ -27,6 +28,9 @@ const routes: Routes = [ //nos deux routes
     ],
     exports: [
         RouterModule
+    ],
+    providers: [
+        AuthGuard
     ]
 }) //pour que ce soit un module angumar : decorateur NgModule
-export class AppRoutingModule {}
+export class AppRoutingModule { }

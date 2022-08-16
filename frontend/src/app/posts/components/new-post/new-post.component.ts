@@ -23,6 +23,7 @@ export class NewPostComponent implements OnInit {
   postForm!: FormGroup;
   postPreview$!: Observable<Post>;//observable qui emmet des posts
   urlRegex!: RegExp;
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder,
     private postService: PostService,
@@ -51,6 +52,8 @@ export class NewPostComponent implements OnInit {
 
   onSubmitForm(): void {//pas besoin d'argument comme pour les formulaires template, car on accede directement à notre variable ici postForm
     this.postService.addPost(this.postForm.value);
+    // display form values on success
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.postForm.value, null, 4));
     this.router.navigateByUrl('/posts');
   }
 }

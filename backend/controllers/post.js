@@ -6,14 +6,15 @@ const fs = require('fs');
 
 //POST CREATION
 exports.createPost = (req, res, next) => {
+    console.log(req)
     const postObject = JSON.parse(req.body.post);
     delete postObject._id;
     delete postObject._userId
     const post = new Post({
         ...postObject,
         imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
-        likes: 0,
-        dislikes: 0,
+        //likes: 0,
+        //dislikes: 0,
     });
     post.save()
         .then(() => { return res.status(201).json({ message: 'Post enregistré !' }) })

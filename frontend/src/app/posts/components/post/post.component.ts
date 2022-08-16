@@ -19,7 +19,7 @@ export class PostComponent implements OnInit {
   //dislike!: number;
 
   constructor(private postService: PostService,//injjection de postService pour tester la methode getOnePostById
-    private router: Router) {}//irouter pour le changement de route à partir d'angular router
+    private router: Router) { }//irouter pour le changement de route à partir d'angular router
 
   ngOnInit() {
     //this.dislike = 0;
@@ -37,6 +37,6 @@ export class PostComponent implements OnInit {
   }
 
   onViewPost() {
-this.router.navigateByUrl(`posts/${this.post.id}`)//recup de la variable post
+    this.router.navigateByUrl(`posts/${this.post.id}`)//recup de la variable post
   }
 }
