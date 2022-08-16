@@ -48,7 +48,7 @@ const postRouters = require('./Routers/post');
 //routers
 app.use('/api/auth', userRouters);
 app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use("/api/post", postRouters);
+app.use('/api/posts', postRouters);
 
 //export app
 module.exports = app;

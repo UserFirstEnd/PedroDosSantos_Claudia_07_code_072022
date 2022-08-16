@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Post } from '../models/post.model';
+import { Post } from '../../../core/models/post.model';
 import { map } from 'rxjs/operators';
-import { PostService } from '../services/post.service';
+import { PostService } from '../../../core/services/post.service';
 import { Router } from '@angular/router';
 
 //Le fait d'avoir importé ReactiveFormsModule vous permet de lier un objet de type FormGroup à un  <form>  avec l'attribut  

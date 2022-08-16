@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core'; //Input = decorateur ?
-import { Post } from '../models/post.model';
-import { PostService } from '../services/post.service';
+import { Post } from '../../../core/models/post.model';
+import { PostService } from '../../../core/services/post.service';
 import { Router } from '@angular/router';
 
 @Component({

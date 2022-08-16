@@ -1,10 +1,10 @@
 //module de routing pour SPA
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from '@angular/router';//permet d'ajouter du routing
-import { LandingPageComponent } from "./landing-page/landing-page.component";
-import { PostListComponent } from "./post-list/post-list.component";
-import { SinglePostComponent } from "./single-post/single-post.component";
-import { NewPostComponent } from "./new-post/new-post.component";
+import { LandingPageComponent } from "./landing-page/components/landing-page/landing-page.component"; 
+import { PostListComponent } from "./posts/components/post-list/post-list.component";
+import { SinglePostComponent } from "./posts/components/single-post/single-post.component";
+import { NewPostComponent } from "./posts/components/new-post/new-post.component";
 
 /*Un module de routing contient un tableau de type  Routes  qui contient les routes de l'application.
 Une route est un objet de type  { path: 'myPath', component: MyComponent }  qui spécifie 

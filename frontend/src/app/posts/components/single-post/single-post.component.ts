@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Post } from '../models/post.model';
-import { PostService } from '../services/post.service';
+import { Post } from '../../../core/models/post.model';
+import { PostService } from '../../../core/services/post.service';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-single-post',
@@ -11,8 +13,7 @@ import { PostService } from '../services/post.service';
 export class SinglePostComponent implements OnInit {
   /*propriété personalisées : Input permet de'injecter la propriété Post depuis l'exterieur. 
    Pour l'injecter faut le créér depuis l'exterieur, dans app.component, son parent*/
-  post!: Post;
-
+  post$!: Observable<Post>;
   buttonTextLike!: string;
   //buttonTextDislike!: string;
   //dislike!: number;
@@ -25,17 +26,18 @@ export class SinglePostComponent implements OnInit {
     this.buttonTextLike = "Oh Like!";
     const postId = +this.route.snapshot.params['id']; //pour recuperer l'id du post, sur l'object params, sur l'object snapshot, de la route activée
     //les params sao de type string car ce sont des params ajoutés sur l'adresse. les ids sont des number, pour pouvoir recup un number, on doit ajouter un + = typecast
-    this.post = this.postService.getOnePostById(postId);
+    this.post$ = this.postService.getOnePostById(postId);
   }
 
-  onLike() {
+  onLike(postId: number) {
     if (this.buttonTextLike === 'Oh Like!') {
-      this.postService.postById(this.post.id, 'like');
-      this.buttonTextLike = 'Oops, unLike!';
+      this.post$ = this.postService.postById(postId, 'like').pipe(
+        tap(() => this.buttonTextLike = 'Oops, unLike!')
+      );
     } else {
-      this.postService.postById(this.post.id, 'unLike');
-      this.buttonTextLike = 'Oh Like!';
+      this.post$ = this.postService.postById(postId, 'unLike').pipe(
+        tap(() => this.buttonTextLike = 'Oh Like!')
+      );
     }
   }
-
 }

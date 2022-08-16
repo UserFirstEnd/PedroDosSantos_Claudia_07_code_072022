@@ -1,4 +1,4 @@
-<div class="post-card" [ngClass]="{ posted: buttonTextLike === 'Oops, unLike!'}">
+<div class="post-card" *ngIf="post$ | async as post" [ngClass]="{ posted: buttonTextLike === 'Oops, unLike!'}">
     <!--[ngClass] les clés sont les noms de classe CSS à appliquer ; les valeurs sont les conditions qui doivent 
 être remplies pour que les classes correspondantes s'appliquent.-->
     <h2>{{ post.title | titlecase }}</h2>
@@ -13,7 +13,7 @@
     <p>Mis en ligne {{ post.createdDate | date: 'à HH:mm, le d MMMM yyyy' }}</p>
     <!--date = pipe-->
     <p>
-        <button (click)="onLike()">{{ buttonTextLike }}</button>
+        <button (click)="onLike(post.id)">{{ buttonTextLike }}</button>
         <span [ngStyle]="{ color: 'rgb(0, ' + post.like + ', 0)' }">🤌 {{ post.like }}</span>
         <!--Style dynamique = La directive  [ngStyle]  prendra comme argument un objet où :
 les clés sont les styles CSS à modifier ;
