@@ -1,30 +1,34 @@
-<div class="post-card" *ngIf="post$ | async as post" [ngClass]="{ posted: buttonTextLike === 'Oops, unLike!'}">
-    <!--[ngClass] les clés sont les noms de classe CSS à appliquer ; les valeurs sont les conditions qui doivent 
+<a (click)="onViewPost()">
+    <div class="post-card" *ngIf="post$ | async as post" [ngClass]="{ posted: buttonTextLike === 'Oops, unLike!'}">
+        <!--[ngClass] les clés sont les noms de classe CSS à appliquer ; les valeurs sont les conditions qui doivent 
 être remplies pour que les classes correspondantes s'appliquent.-->
-    <h2>{{ post.title | titlecase }}</h2>
-    <!--titlecase = pipe-->
-    <a routerLink="/posts">Back</a><!--/posts avec slash pour acceder à la racine de la route, sino il ajoutera à l'id-->
-    <img [src]="post.imageUrl" [alt]="post.title">
-    <p>{{ post.description }}</p>
-    <p *ngIf="post.location === 'Lyon'">
-        <!--=== 'Lyon pour filtrer uniquement les photos prises à Lyon'-->Photo prise à {{ post.location }}
-    </p>
-    <!--Propriété optionnelles *ngIf-->
-    <p>Mis en ligne {{ post.createdDate | date: 'à HH:mm, le d MMMM yyyy' }}</p>
-    <!--date = pipe-->
-    <p>
-        <button (click)="onLike(post.id)">{{ buttonTextLike }}</button>
-        <span [ngStyle]="{ color: 'rgb(0, ' + post.like + ', 0)' }">🤌 {{ post.like }}</span>
-        <!--Style dynamique = La directive  [ngStyle]  prendra comme argument un objet où :
+        <h2>{{ post.title | titlecase }}</h2>
+        <!--titlecase = pipe-->
+        <a routerLink="/posts">Back</a>
+        <p>{{ post.description }}</p>
+        <!--/posts avec slash pour acceder à la racine de la route, sino il ajoutera à l'id-->
+        <img [src]="post.imageUrl" [alt]="post.title">
+        <p>Créé par {{ post.nom }}</p>
+        <p *ngIf="post.location === 'Lyon'">
+            <!--=== 'Lyon pour filtrer uniquement les photos prises à Lyon'-->Photo prise à {{ post.location }}
+        </p>
+        <!--Propriété optionnelles *ngIf-->
+        <!--<p>Mis en ligne {{ post.createdDate | date: 'à HH:mm, le d MMMM yyyy' }}</p>-->
+        <!--date = pipe-->
+        <p>
+            <button (click)="onLike(post._id)">{{ buttonTextLike }}</button>
+            <span [ngStyle]="{ color: 'rgb(0, ' + post.like + ', 0)' }">🤌 {{ post.like }}</span>
+            <!--Style dynamique = La directive  [ngStyle]  prendra comme argument un objet où :
 les clés sont les styles CSS à modifier ;
 les valeurs sont les valeurs que doivent prendre ces styles.-->
-    </p>
-    <p>{{ 4346234.36 | number: '1.0-1' }}</p>
-    <!--double acolades : string interpolation. number = formaté semon les normes du local de notre appli-->
-    <p>{{ 0.366 | percent: '1.0-1' }}</p>
-    <p>{{ 234.36 | currency: 'EUR' : 'code' }}</p>
-    <!--<p>
+        </p>
+        <!--<p>
         <button (click)="onDislike()">{{ buttonTextDislike }}</button>
         🤌 {{ dislike }}
     </p>-->
-</div>
+        <div class="control-buttons">
+            <button mat-raised-button color="primary" (click)="onModify()"
+                *ngIf="userId === post.userId">MODIFY</button>
+        </div>
+    </div>
+</a>

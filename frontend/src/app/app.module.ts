@@ -6,7 +6,6 @@ import * as fr from '@angular/common/locales/fr';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
-//import { LandingPageModule } from './landing-page/landing-page.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -21,7 +20,6 @@ import { LoginComponent } from './auth/login/login.component';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    //LandingPageModule,
     ReactiveFormsModule,
   ],
   bootstrap: [AppComponent]

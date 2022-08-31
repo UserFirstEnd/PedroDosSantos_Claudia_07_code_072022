@@ -5,7 +5,9 @@
 Elle permet de générer des objects Post avec la syntaxe new POst()*/
 export class Post {
     //on peut faire un contructor pour faciliter la création d'objects Post : ced n'est pas le cas ici !
-    id!: number; //il nous faut un id pour sellectionner le bon post
+    userId!: string;
+    _id!: string; //il nous faut un id pour sellectionner le bon post
+    nom!: string;
     title!: string;
     description!: string;
     imageUrl!: string;

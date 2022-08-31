@@ -5,6 +5,8 @@ With this file we will call the routers*/
 const express = require('express');
 const app = express();
 
+/*const bodyParser  =  require ( 'body-parser' )
+app . use ( bodyParser . urlencoded ( {  extended : false  } ) ) */
 //to protect the application by setting HTTP headers : npm i helmet
 const helmet = require('helmet');
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
@@ -42,8 +44,8 @@ mongoose.connect(uri)
     .catch((err) => console.error('Erreur de connexion à MongoDB!', err));
 
 //variables for routers
-const userRouters = require('./Routers/user');
-const postRouters = require('./Routers/post');
+const userRouters = require('./routers/user');
+const postRouters = require('./routers/post');
 
 //routers
 app.use('/api/auth', userRouters);

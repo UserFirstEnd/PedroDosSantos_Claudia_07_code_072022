@@ -15,8 +15,8 @@ export class AuthService {
   constructor(private http: HttpClient,
               private router: Router) {}
 
-  createUser(email: string, password: string) {
-    return this.http.post<{ message: string }>('http://localhost:3000/api/auth/signup', {email: email, password: password});
+  createUser(nom: string, email: string, password: string) {
+    return this.http.post<{ message: string }>('http://localhost:3000/api/auth/signup', {nom: nom, email: email, password: password});
   }
 
   getToken() {
@@ -27,7 +27,7 @@ export class AuthService {
     return this.userId;
   }
 
-  loginUser(email: string, password: string) {
+  loginUser(nom: string, email: string, password: string) {
     return this.http.post<{ userId: string, token: string }>('http://localhost:3000/api/auth/login', {email: email, password: password}).pipe(
       tap(({ userId, token }) => {
         this.userId = userId;

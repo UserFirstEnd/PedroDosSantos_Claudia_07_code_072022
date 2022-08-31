@@ -4,7 +4,8 @@ donc c'est bien là que vous allez gérer les communications avec le serveur.*/
 import { Injectable } from "@angular/core";
 import { Post } from '../models/post.model'
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, switchMap } from "rxjs";
+import { Observable, map, switchMap, Subject } from "rxjs";
+import { LoginComponent } from "src/app/auth/login/login.component";
 
 @Injectable({
     providedIn: 'root'
@@ -19,46 +20,40 @@ export class PostService {
 
     constructor(private http: HttpClient) { }
 
-    //posts: Post[] = [];
+    posts$ = new Subject<Post[]>();
 
-    getAllPost(): Observable<Post[]> {//methode pour retourner le tableau
+    getAllPost() {//methode pour retourner le tableau
         return this.http.get<Post[]>('http://localhost:3000/api/posts');//get qui retourne un tableau des posts
     }
 
-    getOnePostById(postId: number): Observable<Post> {
+    getOnePostById(_id: string) {
         //on recupere un post où son id est strictement egal au postId
-        return this.http.get<Post>(`http://localhost:3000/api/posts/${postId}`);
+        console.log(_id)
+        return this.http.get<Post>(`http://localhost:3000/api/posts/${_id}`);
     }
 
-
-    postById(postId: number, postType: 'like' | 'unLike'): Observable<Post> {
-        return this.getOnePostById(postId).pipe(
-            map(post => ({
-                ...post,
-                like: postType === 'like' ? post.like + 1 : post.like - 1
-            })),
-            switchMap(updatedPost => this.http.put<Post>(
-                `http://localhost:3000/api/posts/${postId}`,
-                updatedPost)
-            )
-        );
+    addPost(post: Post, image: File) {
+        const formData = new FormData();
+        formData.append('post', JSON.stringify(post)), 
+        console.log(post)
+        console.log(image)
+        formData.append('image', image);
+        return this.http.post<{ message: string }>('http://localhost:3000/api/posts', formData);
     }
 
-    addPost(formValue: { id: number, title: string, description: string, imageUrl: string, location?: string }): Observable<Post> {
-        return this.getAllPost().pipe(
-            map(posts => [...posts].sort((a, b) => a.id - b.id)),
-            map(sortedPosts => sortedPosts[sortedPosts.length - 1]),
-            map(previousPost => ({
-                ...formValue,
-                like: 0,
-                createdDate: new Date(),
-                id: previousPost.id + 1
-            })),
-            switchMap(newPost => this.http.post<Post>(
-                'http://localhost:3000/api/posts',
-                newPost)
-            )
-        );
-    }
+    modifyPost(_id: string, post: Post, image: string | File) {
+        if (typeof image === 'string') {
+          return this.http.put<{ message: string }>(`http://localhost:3000/api/posts/${_id}`, post);
+        } else {
+          const formData = new FormData();
+          formData.append('post', JSON.stringify(post));
+          formData.append('image', image);
+          return this.http.put<{ message: string }>(`http://localhost:3000/api/posts/${_id}`, formData);
+        }
+      }
+    
+      deletePost(_id: string) {
+        return this.http.delete<{ message: string }>(`http://localhost:3000/api/posts/${_id}`);
+      }
 
 }

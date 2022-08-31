@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
+      nom: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
       password: [null, Validators.required]
     });
@@ -28,9 +29,10 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.loading = true;
+    const nom = this.loginForm.get('nom')!.value;
     const email = this.loginForm.get('email')!.value;
     const password = this.loginForm.get('password')!.value;
-    this.auth.loginUser(email, password).pipe(
+    this.auth.loginUser(nom, email, password).pipe(
       tap(() => {
         this.loading = false;
         this.router.navigate(['/posts']);

@@ -1,13 +1,21 @@
 <div *ngIf="loading"></div>
 <form [formGroup]="loginForm" *ngIf="!loading">
+  <p>Connectez-vous !</p>
+  <fieldset>
   <div class="form-group">
-    <label for="email">Email</label>
+    <label for="nom">Nom <em>*</em></label>
+    <input id="nom" class="form-control" id="nom" formControlName="nom">
+  </div>
+  <div class="form-group">
+    <label for="email">Email <em>*</em></label>
     <input type="email" class="form-control" id="email" formControlName="email">
   </div>
   <div class="form-group">
-    <label for="password">Password</label>
+    <label for="password">Password <em>*</em></label>
     <input type="password" class="form-control" id="password" formControlName="password">
   </div>
+</fieldset>
+<p><i>Les champs marqué par * sont obligatoires.</i></p>
   <button mat-raised-button color="primary" [disabled]="loginForm.invalid" (click)="onLogin()">LOGIN</button>
   <p class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</p>
 </form>

@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';//permet d'ajouter du rou
 import { LoginComponent } from "./auth/login/login.component";
 import { SignupComponent } from "./auth/signup/signup.component";
 import { AuthGuard } from "./core/services/auth-guard.service";
-import { NewPostComponent } from "./posts/components/new-post/new-post.component";
 //import { LandingPageComponent } from "./landing-page/components/landing-page/landing-page.component";
 
 /*Un module de routing contient un tableau de type  Routes  qui contient les routes de l'application.
@@ -19,7 +18,6 @@ const routes: Routes = [ //nos deux routes
     { path: 'signup', component: SignupComponent },
     { path: 'login', component: LoginComponent },
     { path: 'posts', loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule) },//lazing module
-    { path: 'new-post', component: NewPostComponent, canActivate: [AuthGuard] },
 ]
 
 @NgModule({ //faut enregistrer la route sur le router et on ajoute un object de config

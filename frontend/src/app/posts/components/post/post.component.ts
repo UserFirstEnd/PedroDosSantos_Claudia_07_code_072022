@@ -28,15 +28,16 @@ export class PostComponent implements OnInit {
 
   onLike() {
     if (this.buttonTextLike === 'Oh Like!') {
-      this.postService.postById(this.post.id, 'like');
+      this.postService.getOnePostById(this.post._id);
       this.buttonTextLike = 'Oops, unLike!';
     } else {
-      this.postService.postById(this.post.id, 'unLike');
+      this.postService.getOnePostById(this.post._id);
       this.buttonTextLike = 'Oh Like!';
     }
   }
 
   onViewPost() {
-    this.router.navigateByUrl(`posts/${this.post.id}`)//recup de la variable post
+    this.router.navigateByUrl(`posts/${this.post._id}`)//recup de la variable post
+    console.log(`${this.post.title}`)
   }
 }

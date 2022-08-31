@@ -21,6 +21,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
+      nom: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
       password: [null, Validators.required]
     });
@@ -28,10 +29,11 @@ export class SignupComponent implements OnInit {
 
   onSignup() {
     this.loading = true;
+    const nom = this.signupForm.get('nom')!.value;
     const email = this.signupForm.get('email')!.value;
     const password = this.signupForm.get('password')!.value;
-    this.auth.createUser(email, password).pipe(
-      switchMap(() => this.auth.loginUser(email, password)),
+    this.auth.createUser(nom, email, password).pipe(
+      switchMap(() => this.auth.loginUser(nom, email, password)),
       tap(() => {
         this.loading = false;
         this.router.navigate(['/posts']);

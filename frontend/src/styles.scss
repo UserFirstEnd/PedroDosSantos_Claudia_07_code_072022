@@ -11,7 +11,8 @@ body {
 }
 
 button {
-  background-color: transparent;
+  background-color: white;
+  border-radius: 10px;
   box-sizing: border-box;
   padding: 5px 10px;
   border: none;
@@ -24,4 +25,35 @@ button {
     transform: translate(1px, 1px);
     box-shadow: lightgray 0 0 5px;
   }
+}
+
+a {
+  cursor: pointer;
+}
+
+.post-card {
+  box-sizing: border-box;
+  width: 50%;
+  margin: 20px auto;
+  padding: 10px 30px;
+  border-radius: 15px;
+  box-shadow: #4E5166 4px 4px 20px;
+  background-color: #FFD7D7;
+  img {
+      width: 100%;
+  }
+  h2 {
+      margin-bottom: 0;
+  }
+  p {
+      font-weight: 300;
+      font-size: 16px;
+  }
+}
+
+span {
+  font-size: 20px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 5px;
 }

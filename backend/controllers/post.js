@@ -4,10 +4,10 @@ const Post = require("../models/post");
 //file system: Module to access and interact with the file system
 const fs = require('fs');
 
-//POST CREATION
+//SAUCE CREATION
 exports.createPost = (req, res, next) => {
-    console.log(req)
     const postObject = JSON.parse(req.body.post);
+    //remove the ids given by the frontend, we need the id given by the database
     delete postObject._id;
     delete postObject._userId
     const post = new Post({
