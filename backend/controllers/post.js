@@ -127,7 +127,7 @@ exports.modifyPost = (req, res, next) => {
             if (post.userId != req.auth.userId) {
                 return res.status(401).json({ message: 'User non-autorisé', });
             } else {
-                Post.updateOne({ _id: req.params.id, },
+                Post.updateOne({ _id: req.params.id, },//envoyer l'id - front
                     { ...postObject, _id: req.params.id, })
                     .then(() => {
                         return res.status(201).json({ message: 'Post modifiée !' })

@@ -1,9 +1,0 @@
-<!--template-->
-
-<!--La directive  *ngFor  vous permet d'insérer un élément dans le DOM pour chaque élément dans un tableau.
-La syntaxe  let element of array  vous donne accès à l'élément de chaque itération, 
-vous permettant de l'injecter dans un component, par exemple.-->
-<!--pour chaque element du tableau posts, je genere un post component et à la propriété post 
-    j'associe l'iteration (tableau) usr laquelle on est-->
-    <app-post *ngFor="let post of posts$ | async" [post]="post"></app-post>
-    <!--Propriétés optionnelles *ngIf. exemple = *ngIf="myPost.like > 0-->

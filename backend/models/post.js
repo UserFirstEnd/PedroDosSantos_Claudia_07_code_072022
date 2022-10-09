@@ -8,10 +8,10 @@ const postSchema = mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   imageUrl: { type: String, required: true },
-  /*likes: { type: Number, required: true },
-  dislikes: { type: Number, required: true },
+  //like: { type: Number, required: true },
+  //dislike: { type: Number, required: true },
   usersLiked: { type: Array, required: true },
-  usersDisliked: { type: Array, required: true },*/
+  usersDisliked: { type: Array, required: true },
 });
 
 //export of the model to be able to use it
