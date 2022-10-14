@@ -8,6 +8,6 @@ const userCtrl = require('../controllers/user');
 
 //CRUD
 router.post('/signup', userCtrl.signup);
-router.post('/login', userCtrl.login);
+router.post('/connexion', userCtrl.login);
 
 module.exports = router;
