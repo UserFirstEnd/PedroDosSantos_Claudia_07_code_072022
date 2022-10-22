@@ -1,17 +1,19 @@
 //This file will interact with the file that contains the model post : ../models/post
 const Post = require("../models/post");
-
+const mongoose = require('mongoose');
 //file system: Module to access and interact with the file system
 const fs = require('fs');
 
 //SAUCE CREATION
 exports.createPost = (req, res, next) => {
     const postObject = JSON.parse(req.body.post);
+    console.log(req.body)
     //remove the ids given by the frontend, we need the id given by the database
     delete postObject._id;
     delete postObject._userId
     const post = new Post({
         ...postObject,
+        userId: mongoose.Types.ObjectId(req._userId),
         imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
         //likes: 0,
         //dislikes: 0,

@@ -1,24 +1,28 @@
+//module de demarrage
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
+import { ErrorComponent } from './_error/error/error.component';
 
+//decoré avec ngModule
 @NgModule({
+  //les modules que l'on a besoin, on va declarer ici les composants
   declarations: [
-    AppComponent
+    AppComponent,
+    ErrorComponent
   ],
+  //et les modules
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    CoreModule, //imports pour pouvoir l'utiliser
-    SharedModule//il met à disposition les differents modules de l'application. à voir si on a besoin !!! impoter plusieurs fois, ne double pas la taille du fichier. On a qu'une seule copie
-],
+    BrowserAnimationsModule
+  ],
   providers: [],
+  //la page sur laquelle on va demarer par default
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,8 +3,14 @@
 //import the mongoose package
 const mongoose = require('mongoose');
 
-const postSchema = mongoose.Schema({
-  userId: { type: String, required: true },
+const Schema = mongoose.Schema
+
+const postSchema = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+},
   title: { type: String, required: true },
   description: { type: String, required: true },
   imageUrl: { type: String, required: true },
