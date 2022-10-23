@@ -1,0 +1,8 @@
+<nav>
+    <div class="post-container" fxLayout="column">
+        <a mat-button [routerLink]="['posts']">Accueil</a>
+        <a mat-button [routerLink]="['new-post']">Publier</a>
+        <button mat-button (click)="logout()">Logout</button>
+    </div>
+</nav>
+<app-post-list-item *ngFor="let post of posts$ | async" [post]="post"></app-post-list-item>

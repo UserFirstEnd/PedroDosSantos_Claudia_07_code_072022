@@ -1,0 +1,30 @@
+<div fxLayoutAlign="center center">
+    <mat-card fxLayoutAlign="center center" fxLayout="column">
+        <mat-card-header>
+            <mat-card-title>
+                <span>{{ post.title | titlecase }}</span>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-subtitle>
+            <span>{{ post.createdDate | date }}</span>
+        </mat-card-subtitle>
+        <mat-card-content>
+            <img mat-card-image *ngIf="post.imageUrl as imageUrl" [src]="imageUrl" [alt]="post.title">
+            <span class="post-content">{{ post.description }}</span>
+        </mat-card-content>
+        <mat-card-actions class="demo-section">
+            <button mat-raised-button matBadge="7" matBadgePosition="before" [matBadgeHidden]="hidden" (click)="toggleBadgeVisibility()">
+                <span>👍</span>
+            </button>
+            <button mat-raised-button matBadge="7" matBadgePosition="before" [matBadgeHidden]="hidden" (click)="toggleBadgeVisibility()">
+                <span>👎</span>
+            </button>
+            <button mat-raised-button (click)="onModify()"> <!--*ngIf="userId === post.userId">-->
+                <span>✏️</span>
+            </button>
+            <button mat-raised-button>
+                <span>❌</span>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

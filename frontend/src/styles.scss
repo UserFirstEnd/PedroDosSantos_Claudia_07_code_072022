@@ -1,48 +1,10 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@use "@angular/material" as mat;
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat.core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$social-network-primary: mat.define-palette(mat.$indigo-palette);
-$social-network-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$social-network-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$social-network-theme: mat.define-light-theme(
-    (
-        color: (
-            primary: $social-network-primary,
-            accent: $social-network-accent,
-            warn: $social-network-warn,
-        ),
-    )
-);
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($social-network-theme);
-
-/* You can add global styles to this file, and also import other style files */
-
 /* You can add global styles to this file, and also import other style files */
 
 html,
 body {
     height: 100%;
     margin: 0;
-    font-family: "Lato", sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 a {
     color: white;
@@ -62,60 +24,17 @@ a {
     }
 }
 
-form {
-    margin: 2em auto;
-    max-width: 750px;
-}
-
-//toolbar
-.toolbar {
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    img {
-        margin: 0 16px;
-    }
-    #twitter-logo {
-        height: 40px;
-        margin: 0 8px;
-        :hover {
-            opacity: 0.8;
-            background-color: blue; //à revoir
-        }
-    }
-    #youtube-logo {
-        height: 40px;
-        margin: 0 16px;
-        :hover {
-            opacity: 0.8;
-            background-color: blue; //à revoir
-        }
-    }
-    .spacer {
-        flex: 1;
-    }
-    ul {
-        list-style: none;
-        li {
-            padding: 10px;
-        }
-    }
-}
-
-//header-container
-.header-container {
+//post-container
+.post-container {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: absolute;
     width: 16%;
+    top: 15%;
     a, button {
         padding: 13px;
         width: 100%;
     }
 }
-

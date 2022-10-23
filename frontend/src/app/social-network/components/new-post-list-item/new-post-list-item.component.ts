@@ -1,0 +1,117 @@
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EMPTY, switchMap, tap } from 'rxjs';
+import { AuthServiceService } from 'src/app/auth-form/auth-service.service';;
+import { Post } from '../../models/post.model';
+import { PostsService } from '../../social-network.service';
+
+@Component({
+  selector: 'app-new-post-list-item',
+  templateUrl: './new-post-list-item.component.html',
+  styleUrls: ['./new-post-list-item.component.scss']
+})
+export class NewPostListItemComponent implements OnInit {
+  mode!: string;
+  postForm!: FormGroup;
+  post!: Post;
+  fileName!: string;
+  
+  constructor(private route: ActivatedRoute,
+    private posts: PostsService,
+    private router: Router,
+    private auth: AuthServiceService,
+    private formBuilder: FormBuilder,
+    private http: HttpClient
+    ) { }
+
+  ngOnInit(): void {
+     //this.urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/;
+     this.route.params.pipe(//l operateur pipe pour modifier les emission de l'observable
+     //valueChanges est un observable */
+       switchMap(params => {
+         /*, Validators.pattern(this.urlRegex)*/
+         if (!params['id']) {
+           this.mode = 'new';
+           this.initEmptyForm();
+           return EMPTY;
+         } else {
+           this.mode = 'edit';
+           return this.posts.getPostById(params['id'])
+         }
+       }),
+       tap(post => {
+         if (post) {
+           this.post = post;
+           this.initModifyForm(post);
+         }
+       }),
+     ).subscribe();
+  }
+
+  onSubmitForm() {
+    const newPost = new Post();
+    newPost.title = this.postForm.get('title')!.value;
+    newPost.description = this.postForm.get('description')!.value
+    newPost.createdDate = this.postForm.get('createdDate')!.value
+    newPost.userId = this.auth.getUserId();
+    if (this.mode === 'new') {
+      this.posts.addPost(newPost, this.postForm.get('image')!.value).pipe(
+        tap(() => {
+          this.router.navigate(['/posts']);
+        }),
+      ).subscribe();
+    } else if (this.mode === 'edit') {
+      this.posts.modifyPost(this.post.id, newPost, this.postForm.get('image')!.value).pipe(
+        tap(() => {
+          this.router.navigate(['/posts']);
+        }),
+      ).subscribe();
+    }
+  }
+
+  onAddFile(event: Event) {
+    const file = (event.target as HTMLInputElement).files![0];
+    this.postForm.get('image')!.setValue(file);
+    console.log(file)
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+  }
+
+  onFileSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+
+        this.fileName = file.name;
+
+        const formData = new FormData();
+
+        formData.append("thumbnail", file);
+
+        const upload$ = this.http.post("/api/thumbnail-upload", formData);
+
+        upload$.subscribe();
+    }
+}
+
+  initEmptyForm() {
+    this.postForm = this.formBuilder.group({
+      title: [null, Validators.required],
+      description: [null, Validators.required],
+      image: [null, Validators.required],
+      createdDate: [null, Validators.required],
+    });
+  }
+
+  initModifyForm(post: Post) {
+    this.postForm = this.formBuilder.group({
+      title: [post.title, Validators.required],
+      description: [post.description, Validators.required],
+      image: [post.imageUrl, Validators.required],
+      createdDate: [post.createdDate, Validators.required],
+    });
+  }
+}
