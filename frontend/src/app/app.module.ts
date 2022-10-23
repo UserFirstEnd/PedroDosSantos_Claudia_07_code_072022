@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorComponent } from './_error/error/error.component';
+import { HttpClientModule } from '@angular/common/http';
 
 //decoré avec ngModule
 @NgModule({
@@ -19,7 +20,8 @@ import { ErrorComponent } from './_error/error/error.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   //la page sur laquelle on va demarer par default
