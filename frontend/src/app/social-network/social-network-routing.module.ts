@@ -6,8 +6,8 @@ import { PostsResolver } from './resolvers/posts.resolver';
 
 const routes: Routes = [
   { path: '', component: PostListComponent, resolve: { posts: PostsResolver } },
-  { path: 'new-post', component: NewPostListItemComponent}//,
-  //{ path: 'modify-post', component: NewPostListItemComponent}
+  { path: 'new-post', component: NewPostListItemComponent},
+  { path: 'modify-post', component: NewPostListItemComponent}
 ];
 
 @NgModule({

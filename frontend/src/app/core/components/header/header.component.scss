@@ -1,12 +1,12 @@
 //toolbar
 .toolbar {
-    top: 0;
-    left: 0;
-    right: 0;
     height: 60px;
     display: flex;
     align-items: center;
     font-weight: 600;
+    //position: fixed;
+    //width: 100%;
+    //z-index: 9990;
     img {
         margin: 0 16px;
     }

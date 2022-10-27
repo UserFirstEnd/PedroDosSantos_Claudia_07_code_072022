@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, take, tap } from 'rxjs';
+import { catchError, EMPTY, Observable, switchMap, take, tap } from 'rxjs';
 import { Post } from '../../models/post.model';
 import { PostsService } from '../../social-network.service';
 
@@ -14,6 +14,8 @@ export class PostListItemComponent implements OnInit {
   @Input() post!: Post;
   post$!: Observable<Post>;
   hidden = false;
+  errorMessage!: string;
+  posts!: any;
 
   constructor(private route: ActivatedRoute,
     private postService: PostsService,
@@ -30,5 +32,25 @@ export class PostListItemComponent implements OnInit {
   }
 
   onModify() {
+    this.post$.pipe(
+      take(1),
+      tap(post => this.router.navigate(['modify-post', post._id]))
+    ).subscribe();
+  }
+
+  onDelete() {
+    this.post$.pipe(
+      take(1),
+      switchMap(post => this.posts.deletePost(post._id)),
+      tap(message => {
+        console.log(message);
+        this.router.navigate(['posts']);
+      }),
+      catchError(error => {
+        this.errorMessage = error.message;
+        console.error(error);
+        return EMPTY;
+      })
+    ).subscribe();
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http"
-import { Observable } from "rxjs";
+import { catchError, Observable, throwError } from "rxjs";
 import { Post } from "./models/post.model";
 import { environment } from "src/environments/environment";
 import { token } from "../auth-form/token/token";
@@ -9,7 +9,7 @@ import { token } from "../auth-form/token/token";
 export class PostsService {
 
     token!: token;
-    
+
     constructor(private http: HttpClient) { }
 
     getPosts(): Observable<Post[]> {
@@ -23,7 +23,7 @@ export class PostsService {
     addPost(post: Post, image: File) {
         const formData = new FormData();
         formData.append('post', JSON.stringify(post)),
-        console.log(post)
+            console.log(post)
         formData.append('image', image);
         return this.http.post(`${environment.apiUrl}/posts`, formData);
     }
@@ -37,5 +37,11 @@ export class PostsService {
             formData.append('image', image);
             return this.http.put<{ message: string }>(`http://localhost:3000/api/posts/${id}`, formData);
         }
+    }
+
+    deletePost(id: string) {
+        return this.http.delete<{ message: string }>(`http://localhost:3000/api/posts/${id}`).pipe(
+            catchError(error => throwError(error.error.message))
+        );
     }
 }

@@ -7,7 +7,7 @@ export class Post {
   append(arg0: string, arg1: string) {
       throw new Error("Method not implemented.");
   }//http://json2ts.com/
-  id!: string;
+  _id!: string;
   userId!: string;
   title!: string;
   createdDate!: Date;

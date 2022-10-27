@@ -17,37 +17,37 @@ export class NewPostListItemComponent implements OnInit {
   postForm!: FormGroup;
   post!: Post;
   fileName!: string;
-  
+
   constructor(private route: ActivatedRoute,
     private posts: PostsService,
     private router: Router,
     private auth: AuthServiceService,
     private formBuilder: FormBuilder,
     private http: HttpClient
-    ) { }
+  ) { }
 
   ngOnInit(): void {
-     //this.urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/;
-     this.route.params.pipe(//l operateur pipe pour modifier les emission de l'observable
-     //valueChanges est un observable */
-       switchMap(params => {
-         /*, Validators.pattern(this.urlRegex)*/
-         if (!params['id']) {
-           this.mode = 'new';
-           this.initEmptyForm();
-           return EMPTY;
-         } else {
-           this.mode = 'edit';
-           return this.posts.getPostById(params['id'])
-         }
-       }),
-       tap(post => {
-         if (post) {
-           this.post = post;
-           this.initModifyForm(post);
-         }
-       }),
-     ).subscribe();
+    //this.urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/;
+    this.route.params.pipe(//l operateur pipe pour modifier les emission de l'observable
+      //valueChanges est un observable */
+      switchMap(params => {
+        /*, Validators.pattern(this.urlRegex)*/
+        if (!params['id']) {
+          this.mode = 'new';
+          this.initEmptyForm();
+          return EMPTY;
+        } else {
+          this.mode = 'edit';
+          return this.posts.getPostById(params['id'])
+        }
+      }),
+      tap(post => {
+        if (post) {
+          this.post = post;
+          this.initModifyForm(post);
+        }
+      }),
+    ).subscribe();
   }
 
   onSubmitForm() {
@@ -63,7 +63,7 @@ export class NewPostListItemComponent implements OnInit {
         }),
       ).subscribe();
     } else if (this.mode === 'edit') {
-      this.posts.modifyPost(this.post.id, newPost, this.postForm.get('image')!.value).pipe(
+      this.posts.modifyPost(this.post._id, newPost, this.postForm.get('image')!.value).pipe(
         tap(() => {
           this.router.navigate(['/posts']);
         }),
@@ -81,21 +81,15 @@ export class NewPostListItemComponent implements OnInit {
 
   onFileSelected(event: any) {
 
-    const file:File = event.target.files[0];
-
+    const file: File = event.target.files[0];
     if (file) {
-
-        this.fileName = file.name;
-
-        const formData = new FormData();
-
-        formData.append("thumbnail", file);
-
-        const upload$ = this.http.post("/api/thumbnail-upload", formData);
-
-        upload$.subscribe();
+      this.fileName = file.name;
+      const formData = new FormData();
+      formData.append("thumbnail", file);
+      const upload$ = this.http.post("/api/thumbnail-upload", formData);
+      upload$.subscribe();
     }
-}
+  }
 
   initEmptyForm() {
     this.postForm = this.formBuilder.group({

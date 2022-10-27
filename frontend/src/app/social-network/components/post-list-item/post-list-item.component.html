@@ -1,4 +1,4 @@
-<div fxLayoutAlign="center center">
+<div class="card-container" fxLayoutAlign="center center">
     <mat-card fxLayoutAlign="center center" fxLayout="column">
         <mat-card-header>
             <mat-card-title>
@@ -22,7 +22,7 @@
             <button mat-raised-button (click)="onModify()"> <!--*ngIf="userId === post.userId">-->
                 <span>✏️</span>
             </button>
-            <button mat-raised-button>
+            <button mat-raised-button (click)="onDelete()"> <!--*ngIf="userId === post.userId">-->
                 <span>❌</span>
             </button>
         </mat-card-actions>
