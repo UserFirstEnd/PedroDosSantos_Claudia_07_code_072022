@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthServiceService } from '../../auth-service.service';
 import { token } from '../../token/token';
 import { TokenService } from '../../token/token.service';
+import { UserIdService } from '../../userId/userId.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class UserConnexionComponent implements OnInit {
 
   constructor(private authService: AuthServiceService,
     private router: Router,
-    private tokenService: TokenService) { }
+    private tokenService: TokenService,
+    private userIdService: UserIdService) { }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -32,6 +34,7 @@ export class UserConnexionComponent implements OnInit {
       next: data => {
         console.log(data),
         this.tokenService.saveToken(data),
+        this.userIdService.saveUserId(data),
         this.router.navigate(['/posts'])
       },
       error: err => console.log(err)

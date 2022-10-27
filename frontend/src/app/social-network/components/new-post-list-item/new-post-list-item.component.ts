@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, switchMap, tap } from 'rxjs';
-import { AuthServiceService } from 'src/app/auth-form/auth-service.service';;
+import { AuthServiceService } from 'src/app/auth-form/auth-service.service';import { UserIdService } from 'src/app/auth-form/userId/userId.service';
+;
 import { Post } from '../../models/post.model';
 import { PostsService } from '../../social-network.service';
 
@@ -21,7 +22,7 @@ export class NewPostListItemComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private posts: PostsService,
     private router: Router,
-    private auth: AuthServiceService,
+    private userIdService: UserIdService,
     private formBuilder: FormBuilder,
     private http: HttpClient
   ) { }
@@ -55,7 +56,7 @@ export class NewPostListItemComponent implements OnInit {
     newPost.title = this.postForm.get('title')!.value;
     newPost.description = this.postForm.get('description')!.value
     newPost.createdDate = this.postForm.get('createdDate')!.value
-    newPost.userId = this.auth.getUserId();
+    newPost.userId = this.userIdService.getUserId();
     if (this.mode === 'new') {
       this.posts.addPost(newPost, this.postForm.get('image')!.value).pipe(
         tap(() => {

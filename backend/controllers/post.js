@@ -13,7 +13,6 @@ exports.createPost = (req, res, next) => {
     delete postObject._userId
     const post = new Post({
         ...postObject,
-        userId: mongoose.Types.ObjectId(req._userId),
         imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
         //likes: 0,
         //dislikes: 0,
