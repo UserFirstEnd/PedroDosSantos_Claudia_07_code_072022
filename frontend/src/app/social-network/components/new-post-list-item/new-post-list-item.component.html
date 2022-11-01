@@ -3,7 +3,7 @@
         <a mat-button mat-raised-button [routerLink]="['/posts']">Retour</a>
     </div>
 </nav>
-<div fxLayoutAlign="center center" fxLayout="column" [formGroup]="postForm" *ngIf="postForm">
+<div class="modify-add-post" fxLayoutAlign="center center" fxLayout="column" [formGroup]="postForm" *ngIf="postForm">
     <mat-card>
         <mat-card-title>
             <mat-form-field appearance="fill">
@@ -14,22 +14,18 @@
         <mat-card-content>
             <mat-form-field appearance="fill">
                 <mat-label for="description">Description</mat-label>
-                <input id="description" type="text" formControlName="description" rows="4" matInput
-                    placeholder="Placeholder">
+                <textarea matInput id="description" type="text" formControlName="description" rows="4" matInput
+                    placeholder="Placeholder"></textarea>
             </mat-form-field>
         </mat-card-content>
         <mat-form-field appearance="fill">
             <mat-label>Image</mat-label>
             <input matInput placeholder="Placeholder">
             <input type="file" accept="image/" #imageInput (change)="onAddFile($event)">
-            {{fileName || "No file uploaded yet."}}
-
-            <button mat-mini-fab color="primary" class="upload-btn" (click)="imageInput.click()">
-                <mat-icon>attach_file</mat-icon>
-            </button>
+            <img [src]="imagePreview" *ngIf="imagePreview" style="max-height: 100px;display:block;margin-top:10px">
         </mat-form-field>
-        <div class="action-buttons">
-            <button type="submit" (click)="onSubmitForm()">Enregistrer</button>
+        <div fxLayoutAlign="center center">
+            <button mat-raised-button color="primary" type="submit" (click)="onSubmitForm()">Enregistrer</button>
         </div>
     </mat-card>
 </div>

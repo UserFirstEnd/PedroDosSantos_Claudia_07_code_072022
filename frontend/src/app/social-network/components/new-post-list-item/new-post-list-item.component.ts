@@ -18,8 +18,8 @@ export class NewPostListItemComponent implements OnInit {
   postForm!: FormGroup;
   post!: Post;
   fileName!: string;
-  
   createdDate!: Date;
+  imagePreview!: string;
 
   constructor(private route: ActivatedRoute,
     private posts: PostsService,
@@ -81,19 +81,7 @@ export class NewPostListItemComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(file);
   }
-
-  onFileSelected(event: any) {
-
-    const file: File = event.target.files[0];
-    if (file) {
-      this.fileName = file.name;
-      const formData = new FormData();
-      formData.append("thumbnail", file);
-      const upload$ = this.http.post("/api/thumbnail-upload", formData);
-      upload$.subscribe();
-    }
-  }
-
+  
   initEmptyForm() {
     this.postForm = this.formBuilder.group({
       title: [null, Validators.required],
@@ -101,6 +89,7 @@ export class NewPostListItemComponent implements OnInit {
       image: [null, Validators.required],
       createdDate: [null, Validators.required],
     });
+    this.imagePreview = this.post.imageUrl;
   }
 
   initModifyForm(post: Post) {
@@ -110,5 +99,6 @@ export class NewPostListItemComponent implements OnInit {
       image: [post.imageUrl, Validators.required],
       createdDate: [post.createdDate, Validators.required],
     });
+    this.imagePreview = this.post.imageUrl;
   }
 }
