@@ -9,9 +9,10 @@ const postSchema = new Schema({
   userId: { type: String, required: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
+  createdDate: { type: Date, required: true, default: Date.now },
   imageUrl: { type: String, required: true },
-  //like: { type: Number, required: true },
-  //dislike: { type: Number, required: true },
+  likes: { type: Number, required: true },
+  dislikes: { type: Number, required: true },
   usersLiked: { type: Array, required: true },
   usersDisliked: { type: Array, required: true },
 });

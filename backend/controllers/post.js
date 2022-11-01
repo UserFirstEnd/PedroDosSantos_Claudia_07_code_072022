@@ -14,8 +14,8 @@ exports.createPost = (req, res, next) => {
     const post = new Post({
         ...postObject,
         imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
-        //likes: 0,
-        //dislikes: 0,
+        likes: 0,
+        dislikes: 0,
     });
     post.save()
         .then(() => { return res.status(201).json({ message: 'Post enregistré !' }) })

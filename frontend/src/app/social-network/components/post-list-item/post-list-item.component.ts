@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, EMPTY, Observable, switchMap, take, tap } from 'rxjs';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { catchError, EMPTY, map, Observable, of, switchMap, take, tap } from 'rxjs';
+import { UserIdService } from 'src/app/auth-form/userId/userId.service';
 import { Post } from '../../models/post.model';
 import { PostsService } from '../../social-network.service';
 
@@ -15,16 +16,21 @@ export class PostListItemComponent implements OnInit {
   post$!: Observable<Post>;
   hidden = false;
   errorMessage!: string;
-  posts!: any;
+  likePending!: boolean;
+  userId!: string;
+  liked: number = 0;
+  disliked: number = 0;
 
-  constructor(private route: ActivatedRoute,
-    private postService: PostsService,
+  constructor(private postService: PostsService,
+    private userIdService: UserIdService,
     private router: Router) { }
 
   ngOnInit(): void {
-    const postId = this.route.snapshot.params['id']; //pour recuperer l'id du post, sur l'object params, sur l'object snapshot, de la route activée
-    //les params sao de type string car ce sont des params ajoutés sur l'adresse. les ids sont des number, pour pouvoir recup un number, on doit ajouter un + = typecast
+    const postId = this.post._id;
     this.post$ = this.postService.getPostById(postId);
+    this.userId = this.userIdService.getUserId();
+    this.post.usersLiked.find(user => user === this.userId)
+    this.post.usersDisliked.find(user => user === this.userId)
   }
 
   toggleBadgeVisibility() {
@@ -34,23 +40,35 @@ export class PostListItemComponent implements OnInit {
   onModify() {
     this.post$.pipe(
       take(1),
-      tap(post => this.router.navigate(['modify-post', post._id]))
+      tap(post => this.router.navigate(['posts', post._id])),
     ).subscribe();
   }
 
   onDelete() {
     this.post$.pipe(
       take(1),
-      switchMap(post => this.posts.deletePost(post._id)),
+      switchMap(post => this.postService.deletePost(post._id)),
       tap(message => {
         console.log(message);
-        this.router.navigate(['posts']);
+        this.postService.getPosts();//revoir
       }),
       catchError(error => {
         this.errorMessage = error.message;
         console.error(error);
         return EMPTY;
       })
+    ).subscribe();
+  }
+
+  onLike() {
+    this.postService.likePost(this.post._id, !this.liked).pipe(
+      map(liked => ({ ...this.post, likes: liked ? this.post.likes + 1 : this.post.likes - 1 }))
+    ).subscribe();
+  }
+
+  onDislike() {
+    this.postService.dislikePost(this.post._id, !this.disliked).pipe(
+      map(disliked => ({ ...this.post, dislikes: disliked ? this.post.dislikes + 1 : this.post.dislikes - 1 })),
     ).subscribe();
   }
 }

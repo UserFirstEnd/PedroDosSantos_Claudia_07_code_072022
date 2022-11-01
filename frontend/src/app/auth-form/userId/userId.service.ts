@@ -18,4 +18,8 @@ export class UserIdService {
     getUserId() {
         return JSON.parse(localStorage['userId']);
     }
+
+    clearUserId() {
+        localStorage.removeItem('userId');
+    }
 }

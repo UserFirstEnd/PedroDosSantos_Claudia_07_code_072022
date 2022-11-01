@@ -1,5 +1,6 @@
 <div class="card-container" fxLayoutAlign="center center">
     <mat-card fxLayoutAlign="center center" fxLayout="column">
+        <p>Mis en ligne le {{ post.createdDate | date }}</p>
         <mat-card-header>
             <mat-card-title>
                 <span>{{ post.title | titlecase }}</span>
@@ -13,16 +14,18 @@
             <span class="post-content">{{ post.description }}</span>
         </mat-card-content>
         <mat-card-actions class="demo-section">
-            <button mat-raised-button matBadge="7" matBadgePosition="before" [matBadgeHidden]="hidden" (click)="toggleBadgeVisibility()">
+            <span>{{ post.likes }}</span>
+            <button mat-raised-button (click)="onLike()">
                 <span>👍</span>
             </button>
-            <button mat-raised-button matBadge="7" matBadgePosition="before" [matBadgeHidden]="hidden" (click)="toggleBadgeVisibility()">
+            <span>{{ post.dislikes }}</span>
+            <button mat-raised-button (click)="onDislike()">
                 <span>👎</span>
             </button>
-            <button mat-raised-button (click)="onModify()"> <!--*ngIf="userId === post.userId">-->
+            <button mat-raised-button (click)="onModify()" *ngIf="userId === post.userId"> <!--*ngIf="userId === post.userId">-->
                 <span>✏️</span>
             </button>
-            <button mat-raised-button (click)="onDelete()"> <!--*ngIf="userId === post.userId">-->
+            <button mat-raised-button (click)="onDelete()" *ngIf="userId === post.userId"> <!--*ngIf="userId === post.userId">-->
                 <span>❌</span>
             </button>
         </mat-card-actions>

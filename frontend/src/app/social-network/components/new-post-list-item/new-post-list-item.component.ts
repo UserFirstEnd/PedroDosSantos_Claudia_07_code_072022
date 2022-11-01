@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, switchMap, tap } from 'rxjs';
-import { AuthServiceService } from 'src/app/auth-form/auth-service.service';import { UserIdService } from 'src/app/auth-form/userId/userId.service';
+import { AuthServiceService } from 'src/app/auth-form/auth-service.service'; import { UserIdService } from 'src/app/auth-form/userId/userId.service';
 ;
 import { Post } from '../../models/post.model';
 import { PostsService } from '../../social-network.service';
@@ -34,6 +34,7 @@ export class NewPostListItemComponent implements OnInit {
       switchMap(params => {
         /*, Validators.pattern(this.urlRegex)*/
         if (!params['id']) {
+          console.log(params['id'])
           this.mode = 'new';
           this.initEmptyForm();
           return EMPTY;
@@ -49,6 +50,9 @@ export class NewPostListItemComponent implements OnInit {
         }
       }),
     ).subscribe();
+    const dateFormat = require('dateformat');
+    const createdDate = new Date();
+    dateFormat(createdDate, "dddd, mmmm dS, yyyy, h:MM:ss TT");
   }
 
   onSubmitForm() {

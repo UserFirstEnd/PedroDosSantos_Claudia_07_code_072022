@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { TokenService } from 'src/app/auth-form/token/token.service';
+import { UserIdService } from 'src/app/auth-form/userId/userId.service';
 import { Post } from '../../models/post.model';
 
 @Component({
@@ -15,6 +16,7 @@ export class PostListComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private tokenService: TokenService,
+    private userIdService: UserIdService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -25,6 +27,7 @@ export class PostListComponent implements OnInit {
 
   logout() {
     this.tokenService.clearToken();
+    this.userIdService.clearUserId();
     this.router.navigate(['/'])
   }
 }

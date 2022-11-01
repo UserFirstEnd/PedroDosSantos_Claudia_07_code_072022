@@ -6,11 +6,13 @@ import { UserConnexionComponent } from './components/user-connexion/user-connexi
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../shared/material.module';
 import { AuthServiceService } from './auth-service.service';
+import { SignupConnexionComponent } from './components/signup-connexion/signup-connexion.component';
 
 
 @NgModule({
   declarations: [
-    UserConnexionComponent
+    UserConnexionComponent,
+    SignupConnexionComponent
   ],
   imports: [
     CommonModule,

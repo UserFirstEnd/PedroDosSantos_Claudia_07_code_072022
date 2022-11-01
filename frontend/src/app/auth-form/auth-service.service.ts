@@ -1,25 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { dataLogin } from './dataLogin';
 import { token } from './token/token';
+import { userId } from './userId/userId';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
 
-  private userId = '';
 
-  url = `${environment.apiUrl}/auth/login`
+  constructor(private http: HttpClient,
+    private router: Router) { }
 
-  constructor(private http: HttpClient) { }
-  login(dataLogin: dataLogin): Observable<token> {
-    console.log(dataLogin)
-    return this.http.post<token>(this.url, dataLogin);
+  login(email: string, password: string): Observable<token> {
+    console.log({ email: email, password: password })
+    return this.http.post<{ userId: string, token: string }>(`${environment.apiUrl}/auth/login`, { email: email, password: password });
   }
 
-  getUserId() {
-    return this.userId;
+  createUser(email: string, password: string): Observable<token> {
+    console.log({ email: email, password: password })
+    return this.http.post<token>(`${environment.apiUrl}/auth/signup`, { email: email, password: password });;
   }
 }

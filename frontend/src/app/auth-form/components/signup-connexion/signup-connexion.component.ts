@@ -1,25 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { catchError, EMPTY, switchMap, tap } from 'rxjs';
 import { AuthServiceService } from '../../auth-service.service';
-import { token } from '../../token/token';
 import { TokenService } from '../../token/token.service';
 import { UserIdService } from '../../userId/userId.service';
 
-
 @Component({
-  selector: 'app-user-connexion',
-  templateUrl: './user-connexion.component.html',
-  styleUrls: ['./user-connexion.component.scss']
+  selector: 'app-signup-connexion',
+  templateUrl: './signup-connexion.component.html',
+  styleUrls: ['./signup-connexion.component.scss']
 })
+export class SignupConnexionComponent implements OnInit {
 
-export class UserConnexionComponent implements OnInit {
-
-  data!: token;
   formGroup!: FormGroup;
+  errorMsg!: string;
 
-  constructor(private authService: AuthServiceService,
+  constructor(private formBuilder: FormBuilder,
+    private authService: AuthServiceService,
     private router: Router,
     private tokenService: TokenService,
     private userIdService: UserIdService) { }
@@ -31,18 +29,21 @@ export class UserConnexionComponent implements OnInit {
     });
   }
 
-  loginProcess() {
+  onSignup() {
     const email = this.formGroup.get('email')!.value;
     const password = this.formGroup.get('password')!.value;
-    this.authService.login(email, password).subscribe({
-      next: data => {
+    this.authService.createUser(email, password).pipe(
+      switchMap(() => this.authService.login(email, password)),
+      tap((data) => {
         console.log(data),
         this.tokenService.saveToken(data),
         this.userIdService.saveUserId(data),
-        this.router.navigate(['/posts'])
-      },
-      error: err => console.log(err)
-    });
+        this.router.navigate(['/posts']);
+      }),
+      catchError(error => {
+        this.errorMsg = error.message;
+        return EMPTY;
+      })
+    ).subscribe();
   }
 }
-
