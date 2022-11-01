@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, map, Observable, of, switchMap, take, tap } from 'rxjs';
 import { UserIdService } from 'src/app/auth-form/userId/userId.service';
@@ -18,8 +18,8 @@ export class PostListItemComponent implements OnInit {
   errorMessage!: string;
   likePending!: boolean;
   userId!: string;
-  liked: number = 0;
-  disliked: number = 0;
+  liked!: number;
+  disliked!: number;
 
   constructor(private postService: PostsService,
     private userIdService: UserIdService,
@@ -61,12 +61,18 @@ export class PostListItemComponent implements OnInit {
   }
 
   onLike() {
+    if (this.disliked) {
+      return;
+    }
     this.postService.likePost(this.post._id, !this.liked).pipe(
       map(liked => ({ ...this.post, likes: liked ? this.post.likes + 1 : this.post.likes - 1 }))
     ).subscribe();
   }
 
   onDislike() {
+    if (this.liked) {
+      return;
+    }
     this.postService.dislikePost(this.post._id, !this.disliked).pipe(
       map(disliked => ({ ...this.post, dislikes: disliked ? this.post.dislikes + 1 : this.post.dislikes - 1 })),
     ).subscribe();

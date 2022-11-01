@@ -18,6 +18,8 @@ export class NewPostListItemComponent implements OnInit {
   postForm!: FormGroup;
   post!: Post;
   fileName!: string;
+  
+  createdDate!: Date;
 
   constructor(private route: ActivatedRoute,
     private posts: PostsService,
@@ -50,16 +52,12 @@ export class NewPostListItemComponent implements OnInit {
         }
       }),
     ).subscribe();
-    const dateFormat = require('dateformat');
-    const createdDate = new Date();
-    dateFormat(createdDate, "dddd, mmmm dS, yyyy, h:MM:ss TT");
   }
 
   onSubmitForm() {
     const newPost = new Post();
     newPost.title = this.postForm.get('title')!.value;
     newPost.description = this.postForm.get('description')!.value
-    newPost.createdDate = this.postForm.get('createdDate')!.value
     newPost.userId = this.userIdService.getUserId();
     if (this.mode === 'new') {
       this.posts.addPost(newPost, this.postForm.get('image')!.value).pipe(

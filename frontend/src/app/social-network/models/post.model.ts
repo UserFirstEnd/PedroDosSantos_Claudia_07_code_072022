@@ -10,7 +10,7 @@ export class Post {
   _id!: string;
   userId!: string;
   title!: string;
-  createdDate = new Date();
+  createdDate!: Date;
   imageUrl!: string;
   description!: string;
   likes!: number;

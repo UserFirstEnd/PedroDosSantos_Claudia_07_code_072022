@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from "@angular/core";
+/*import { Pipe, PipeTransform } from "@angular/core";
 import { __values } from "tslib";
 
 @Pipe({
@@ -11,5 +11,5 @@ export class ShortenPipe implements PipeTransform {
         }
         return value.substring(0, 50) + '_';
     }
-}
+}*/
 
