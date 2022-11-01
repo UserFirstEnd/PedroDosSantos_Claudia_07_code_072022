@@ -77,8 +77,11 @@ export class NewPostListItemComponent implements OnInit {
   onAddFile(event: Event) {
     const file = (event.target as HTMLInputElement).files![0];
     this.postForm.get('image')!.setValue(file);
-    console.log(file)
     const reader = new FileReader();
+    console.log(file)
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
     reader.readAsDataURL(file);
   }
   
@@ -89,7 +92,6 @@ export class NewPostListItemComponent implements OnInit {
       image: [null, Validators.required],
       createdDate: [null, Validators.required],
     });
-    this.imagePreview = this.post.imageUrl;
   }
 
   initModifyForm(post: Post) {
