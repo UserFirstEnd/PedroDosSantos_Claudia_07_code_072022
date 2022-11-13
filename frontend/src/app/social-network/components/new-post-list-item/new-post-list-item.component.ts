@@ -78,7 +78,6 @@ export class NewPostListItemComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files![0];
     this.postForm.get('image')!.setValue(file);
     const reader = new FileReader();
-    console.log(file)
     reader.onload = () => {
       this.imagePreview = reader.result as string;
     };

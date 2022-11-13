@@ -6,6 +6,8 @@
     font-weight: 600;
     position: fixed;
     z-index: 9990;
+    background-color: #FD2D01;
+    b
     img {
         margin: 0 16px;
     }
@@ -14,7 +16,6 @@
         margin: 0 8px;
         :hover {
             opacity: 0.8;
-            background-color: blue; //à revoir
         }
     }
     #youtube-logo {
@@ -22,7 +23,6 @@
         margin: 0 16px;
         :hover {
             opacity: 0.8;
-            background-color: blue; //à revoir
         }
     }
     .spacer {

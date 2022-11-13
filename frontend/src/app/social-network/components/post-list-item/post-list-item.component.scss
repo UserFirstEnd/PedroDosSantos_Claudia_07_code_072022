@@ -4,6 +4,7 @@ mat-card {
     img {
         height: 250px;
         object-fit: contain;
+        box-shadow: 1px 1px 1px 1px #4E5166;
     }
     :host {
         display: flex;

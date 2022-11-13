@@ -14,17 +14,17 @@
         </mat-card-content>
         <mat-card-actions class="demo-section">
             <span>{{ post.likes }}</span>
-            <button mat-raised-button (click)="onLike()">
+            <button mat-button mat-raised-button (click)="onLike()">
                 <span>👍</span>
             </button>
             <span>{{ post.dislikes }}</span>
-            <button mat-raised-button (click)="onDislike()">
+            <button mat-button mat-raised-button (click)="onDislike()">
                 <span>👎</span>
             </button>
-            <button mat-raised-button (click)="onModify()" *ngIf="userId === post.userId || this.role === 'Admin'">
+            <button mat-button mat-raised-button (click)="onModify()" *ngIf="userId === post.userId || this.role === 'Admin'">
                 <span>✏️</span>
             </button>
-            <button mat-raised-button (click)="onDelete(post._id)" *ngIf="userId === post.userId || this.role === 'Admin'">
+            <button mat-button mat-raised-button (click)="onDelete(post._id)" *ngIf="userId === post.userId || this.role === 'Admin'">
                 <span>❌</span>
             </button>
         </mat-card-actions>

@@ -125,7 +125,6 @@ exports.modifyPost = (req, res, next) => {
     } else { postObject = { ...req.body } }
     delete postObject._userId;
     Post.findOne({ _id: req.params.id, })
-    console.log(req)
         .then((post) => {
             if (post.userId != req.auth.userId) {
                 return res.status(401).json({ message: 'User non-autorisé', });
