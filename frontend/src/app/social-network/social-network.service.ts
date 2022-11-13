@@ -23,7 +23,7 @@ export class PostsService {
               console.error(error.error.message);
               return of([]);
             })
-          ).subscribe();//à revoir sur la premiere partie episode 3
+          ).subscribe();
     }
 
     getPostById(id: string): Observable<Post> {

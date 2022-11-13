@@ -58,7 +58,6 @@ export class NewPostListItemComponent implements OnInit {
     newPost.title = this.postForm.get('title')!.value;
     newPost.description = this.postForm.get('description')!.value
     newPost.userId = this.userService.getUserId();
-    newPost.role = this.userService.getRole();
     if (this.mode === 'new') {
       this.posts.addPost(newPost, this.postForm.get('image')!.value).pipe(
         tap(() => {

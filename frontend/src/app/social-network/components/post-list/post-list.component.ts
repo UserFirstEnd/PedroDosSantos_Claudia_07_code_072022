@@ -40,13 +40,13 @@ export class PostListComponent implements OnInit {
       }),
     );
     this.postsService.getPosts();
-      this.role = this.userIdService.getRole();
+    this.role = this.userIdService.getRole();
   };
 
   logout() {
     this.tokenService.clearToken();
     this.userIdService.clearUserId();
-    this.userIdService.clearUserId();
+    this.userIdService.clearRole();
     this.router.navigate(['/']);
   };
 };

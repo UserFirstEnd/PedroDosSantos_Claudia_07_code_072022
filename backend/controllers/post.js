@@ -30,7 +30,7 @@ exports.likePost = (req, res, next) => {
         case 0:
             //the user who liked has already liked, if so remove 1 like
             Post.findOne({ _id: req.params.id })
-            //console.log(_id)
+                //console.log(_id)
                 .then((post) => {
                     if (post.usersLiked.find(user => user === req.body.userId)) {
                         Post.updateOne({ _id: req.params.id }, {
@@ -140,6 +140,8 @@ exports.modifyPost = (req, res, next) => {
         .catch((error) => {
             return res.status(400).json({ error: error });
         });
+        console.log(req.body)
+    console.log(req.auth)
 };
 
 /// DELETE ONE POST //

@@ -3,7 +3,6 @@ import { MonoTypeOperatorFunction } from "rxjs";
 export class Post {
   _id!: string;
   userId!: string;
-  role!: string;
   title!: string;
   createdDate!: Date;
   imageUrl!: string;
