@@ -1,9 +1,12 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { catchError, EMPTY, map, Observable, of, switchMap, take, tap } from 'rxjs';
-import { UserIdService } from 'src/app/auth-form/userId/userId.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, Observable, of, switchMap, take, tap } from 'rxjs';
+import { User } from 'src/app/auth-form/models/user.model';
+import { UserIdService } from 'src/app/auth-form/user/user.service';
 import { Post } from '../../models/post.model';
 import { PostsService } from '../../social-network.service';
+import { PostListComponent } from '../post-list/post-list.component';
 
 @Component({
   selector: 'app-post-list-item',
@@ -14,23 +17,34 @@ export class PostListItemComponent implements OnInit {
 
   @Input() post!: Post;
   post$!: Observable<Post>;
+  user!: Observable<User>;
   hidden = false;
+  role!: string;
   errorMessage!: string;
-  likePending!: boolean;
   userId!: string;
-  liked!: number;
-  disliked!: number;
+  liked!: boolean;
+  disliked!: boolean;
+  showDialog = false;
 
   constructor(private postService: PostsService,
-    private userIdService: UserIdService,
-    private router: Router) { }
+    private postList: PostListComponent,
+    private userService: UserIdService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     const postId = this.post._id;
-    this.post$ = this.postService.getPostById(postId);
-    this.userId = this.userIdService.getUserId();
-    this.post.usersLiked.find(user => user === this.userId)
-    this.post.usersDisliked.find(user => user === this.userId)
+    this.post$ = this.postService.getPostById(postId).pipe(
+      tap(post => {
+        if (post.usersLiked.find(user => user === this.userId)) {
+          this.liked = true;
+        } else if (post.usersDisliked.find(user => user === this.userId)) {
+          this.disliked = true;
+        }
+      })
+    )
+    this.userId = this.userService.getUserId();
+    this.role = this.userService.getRole();
   }
 
   toggleBadgeVisibility() {
@@ -44,37 +58,43 @@ export class PostListItemComponent implements OnInit {
     ).subscribe();
   }
 
-  onDelete() {
-    this.post$.pipe(
-      take(1),
-      switchMap(post => this.postService.deletePost(post._id)),
-      tap(message => {
-        console.log(message);
-        this.postService.getPosts();//revoir
-      }),
-      catchError(error => {
-        this.errorMessage = error.message;
-        console.error(error);
-        return EMPTY;
-      })
-    ).subscribe();
+  onDelete(_id: any) {
+    this.postService.deletePost(this.post._id).subscribe(
+      (resp) => {
+        this.postList.ngOnInit();
+        console.log(resp);
+        //this.matDialog.open(DialogComponent);
+        (error: HttpErrorResponse) => {
+          console.log(error);
+        }
+      }
+    );
   }
 
   onLike() {
     if (this.disliked) {
       return;
     }
-    this.postService.likePost(this.post._id, !this.liked).pipe(
-      map(liked => ({ ...this.post, likes: liked ? this.post.likes + 1 : this.post.likes - 1 }))
+    this.post$.pipe(
+      take(1),
+      switchMap((post: Post) => this.postService.likePost(this.post._id, !this.liked).pipe(
+        map(liked => ({ ...post, likes: liked ? post.likes + 1 : post.likes - 1 })),
+      )),
     ).subscribe();
+    this.postList.ngOnInit();
   }
 
   onDislike() {
     if (this.liked) {
       return;
     }
-    this.postService.dislikePost(this.post._id, !this.disliked).pipe(
-      map(disliked => ({ ...this.post, dislikes: disliked ? this.post.dislikes + 1 : this.post.dislikes - 1 })),
+    this.post$.pipe(
+      take(1),
+      switchMap((post: Post) => this.postService.dislikePost(post._id, !this.disliked).pipe(
+        map(disliked => ({ ...post, dislikes: disliked ? post.dislikes + 1 : post.dislikes - 1 })),
+      )),
     ).subscribe();
+    this.postList.ngOnInit();
   }
 }
+

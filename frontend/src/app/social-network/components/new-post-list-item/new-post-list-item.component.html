@@ -18,12 +18,9 @@
                     placeholder="Placeholder"></textarea>
             </mat-form-field>
         </mat-card-content>
-        <mat-form-field appearance="fill">
-            <mat-label>Image</mat-label>
-            <input matInput placeholder="Placeholder">
             <input type="file" accept="image/" #imageInput (change)="onAddFile($event)">
-            <img [src]="imagePreview" *ngIf="imagePreview" style="max-height: 100px;display:block;margin-top:10px">
-        </mat-form-field>
+            <button mat-raised-button color="primary" (click)="imageInput.click()">Ajouter Image</button>
+            <img [src]="imagePreview" *ngIf="imagePreview" style="max-height: 200px;margin-top:10px">
         <div fxLayoutAlign="center center">
             <button mat-raised-button color="primary" type="submit" (click)="onSubmitForm()">Enregistrer</button>
         </div>

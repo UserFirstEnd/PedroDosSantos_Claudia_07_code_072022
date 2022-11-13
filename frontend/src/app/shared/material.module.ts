@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
     exports: [
@@ -21,7 +23,9 @@ import { MatMenuModule } from '@angular/material/menu';
         MatInputModule,
         FlexLayoutModule,
         MatBadgeModule,
-        MatMenuModule
+        MatMenuModule,
+        MatSortModule,
+        MatDialogModule
     ]
 })
 export class MaterialModule { }

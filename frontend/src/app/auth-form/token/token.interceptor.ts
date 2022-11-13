@@ -11,11 +11,11 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const token = this.tokenService.getToken();
-    console.log(req)
+    //console.log(req)
     const request = req.clone({
       headers: req.headers.set('Authorization', `Bearer ${token}`)
     });
-    console.log(request)
+    //console.log(request)
     return next.handle(request);
   }
 }

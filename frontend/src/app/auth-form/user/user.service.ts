@@ -15,11 +15,24 @@ export class UserIdService {
         localStorage.setItem('userId', JSON.stringify(userId.userId));
     }
 
+    saveRole(userId: any): void {
+        localStorage.setItem('role', JSON.stringify(userId.role));
+        console.log(userId.role)
+    }
+
     getUserId() {
         return JSON.parse(localStorage['userId']);
     }
 
+    getRole() {
+        return JSON.parse(localStorage['role']);
+    }
+
     clearUserId() {
         localStorage.removeItem('userId');
+    }
+
+    clearRole() {
+        localStorage.removeItem('role');
     }
 }

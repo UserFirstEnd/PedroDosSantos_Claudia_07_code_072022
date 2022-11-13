@@ -7,7 +7,7 @@ const fs = require('fs');
 //SAUCE CREATION
 exports.createPost = (req, res, next) => {
     const postObject = JSON.parse(req.body.post);
-    console.log(req.body)
+    console.log(req.body.post);
     //remove the ids given by the frontend, we need the id given by the database
     delete postObject._id;
     delete postObject._userId
@@ -30,6 +30,7 @@ exports.likePost = (req, res, next) => {
         case 0:
             //the user who liked has already liked, if so remove 1 like
             Post.findOne({ _id: req.params.id })
+            //console.log(_id)
                 .then((post) => {
                     if (post.usersLiked.find(user => user === req.body.userId)) {
                         Post.updateOne({ _id: req.params.id }, {
@@ -124,10 +125,11 @@ exports.modifyPost = (req, res, next) => {
     } else { postObject = { ...req.body } }
     delete postObject._userId;
     Post.findOne({ _id: req.params.id, })
+    console.log(req)
         .then((post) => {
             if (post.userId != req.auth.userId) {
                 return res.status(401).json({ message: 'User non-autorisé', });
-            } else {
+            } else if (post.userId === req.auth.userId) {
                 Post.updateOne({ _id: req.params.id, },//envoyer l'id - front
                     { ...postObject, _id: req.params.id, })
                     .then(() => {

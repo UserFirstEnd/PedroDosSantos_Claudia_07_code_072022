@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, EMPTY, switchMap, tap } from 'rxjs';
 import { AuthServiceService } from '../../auth-service.service';
 import { TokenService } from '../../token/token.service';
-import { UserIdService } from '../../userId/userId.service';
+import { UserIdService } from '../../user/user.service';
 
 @Component({
   selector: 'app-signup-connexion',
@@ -38,6 +38,7 @@ export class SignupConnexionComponent implements OnInit {
         console.log(data),
         this.tokenService.saveToken(data),
         this.userIdService.saveUserId(data),
+        this.userIdService.saveRole(data),
         this.router.navigate(['/posts']);
       }),
       catchError(error => {

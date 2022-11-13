@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { switchMap } from 'rxjs';
 import { AuthServiceService } from '../../auth-service.service';
 import { token } from '../../token/token';
 import { TokenService } from '../../token/token.service';
-import { UserIdService } from '../../userId/userId.service';
+import { UserIdService } from '../../user/user.service';
 
 
 @Component({
@@ -39,6 +38,7 @@ export class UserConnexionComponent implements OnInit {
         console.log(data),
         this.tokenService.saveToken(data),
         this.userIdService.saveUserId(data),
+        this.userIdService.saveRole(data),
         this.router.navigate(['/posts'])
       },
       error: err => console.log(err)

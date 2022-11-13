@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { TokenInterceptorProvider } from './auth-form/token/token.interceptor';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { TokenInterceptorProvider } from './auth-form/token/token.interceptor';
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule, //imports pour pouvoir l'utiliser
-    SharedModule//il met à disposition les differents modules de l'application. à voir si on a besoin !!! impoter plusieurs fois, ne double pas la taille du fichier. On a qu'une seule copie
+    SharedModule,//il met à disposition les differents modules de l'application. à voir si on a besoin !!! impoter plusieurs fois, ne double pas la taille du fichier. On a qu'une seule copie
 ],
   providers: [ TokenInterceptorProvider ],
   bootstrap: [AppComponent]

@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, switchMap, tap } from 'rxjs';
-import { AuthServiceService } from 'src/app/auth-form/auth-service.service'; import { UserIdService } from 'src/app/auth-form/userId/userId.service';
-;
+import { AuthServiceService } from 'src/app/auth-form/auth-service.service'; 
+import { UserIdService } from 'src/app/auth-form/user/user.service';
 import { Post } from '../../models/post.model';
 import { PostsService } from '../../social-network.service';
 
@@ -24,7 +24,7 @@ export class NewPostListItemComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private posts: PostsService,
     private router: Router,
-    private userIdService: UserIdService,
+    private userService: UserIdService,
     private formBuilder: FormBuilder,
     private http: HttpClient
   ) { }
@@ -36,7 +36,6 @@ export class NewPostListItemComponent implements OnInit {
       switchMap(params => {
         /*, Validators.pattern(this.urlRegex)*/
         if (!params['id']) {
-          console.log(params['id'])
           this.mode = 'new';
           this.initEmptyForm();
           return EMPTY;
@@ -58,7 +57,8 @@ export class NewPostListItemComponent implements OnInit {
     const newPost = new Post();
     newPost.title = this.postForm.get('title')!.value;
     newPost.description = this.postForm.get('description')!.value
-    newPost.userId = this.userIdService.getUserId();
+    newPost.userId = this.userService.getUserId();
+    newPost.role = this.userService.getRole();
     if (this.mode === 'new') {
       this.posts.addPost(newPost, this.postForm.get('image')!.value).pipe(
         tap(() => {
