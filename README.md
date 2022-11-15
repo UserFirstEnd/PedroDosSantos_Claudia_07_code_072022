@@ -14,7 +14,7 @@ Détails de la fonctionnalité de connexion :
 - La session de l'utilisateu persiste pendant qu'il est connecté.
 - Les donnéees de connexion sont sécurisées.
 
-PAGE DE D'ACCUEIL : 
+PAGE D'ACCUEIL : 
 - Elle liste les posts créés par les différents utilisateurs.
 - Les posts sont listés de façon antéchronologique, du plus récent au plus ancien.
 
