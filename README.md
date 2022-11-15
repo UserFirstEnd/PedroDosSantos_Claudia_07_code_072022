@@ -7,11 +7,11 @@ Création d'un réseau social interne pour les employés de Groupomania.
 Spécification fonctionnelles
 
 PAGE DE CONNEXION : 
-- Une page de connexion et de creation de compte.
+- Une page de connexion et de création de compte.
 - La connexion se fait à partir de deux éléments : le mail de l'employé et un mot de passe.
 Détails de la fonctionnalité de connexion :
 - Un utilisateur peut se déconnecter.
-- La session de l'utilisateu persiste pendant qu'il est connecté.
+- La session de l'utilisateur persiste pendant qu'il est connecté.
 - Les donnéees de connexion sont sécurisées.
 
 PAGE D'ACCUEIL : 
@@ -27,7 +27,7 @@ SYSTèME DE LIKE :
 - Un utilisateur peut liker un post, une seule fois pour chaque post.
 
 RôLE ADMIN :
-- Un administrateur à les droits de suppression et modification sur tous les posts.
+- Un administrateur a les droits de suppression et modification sur tous les posts.
 
 #
 
