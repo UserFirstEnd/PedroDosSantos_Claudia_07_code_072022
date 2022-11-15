@@ -46,11 +46,11 @@ git clone https://github.com/UserFirstEnd/PedroDosSantos_Claudia_07_code_072022.
 
 3 - INSTRUCTIONS
 - Base de données MongoDB :
-- Dans le dossier backend > Créér un fichier .env . Copier et coller les informations fournies dans le dossier du livrable : Nom_Prénom_2_bdd_mmaaaa.
+- Dans le dossier backend > Créér un fichier .env . Copier et coller les informations fournies dans le fichier TXT du livrable : PedroDosSantos_Claudia_2_bdd_082022.
 
 4 - INSTRUCTIONS
 - Identifiants du compte administrateur :
-- Vous allez trouver les identifiants du compte administrateur dans le dossier du livrable : Nom_Prénom_2_compte_admin_mmaaaa.
+- Vous allez trouver les identifiants du compte administrateur le fichier TXT du livrable : PedroDosSantos_Claudia_3_compte_admin_082022.
 
 
 # frontend
