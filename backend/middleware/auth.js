@@ -1,6 +1,6 @@
 //to be able to create and verify authentication tokens: npm i jsonwebtoken
 const jwt = require('jsonwebtoken');
-const { ROLES } = require('../models/user');
+//const { ROLES } = require('../models/user');
 
 module.exports = (req, res, next) => {
     try {
@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
         const userId = decodedToken.userId;
         req.auth = {
             userId: userId,
-            role: ROLES.role
+            //role: ROLES.role
         };
         next();
     } catch (error) {

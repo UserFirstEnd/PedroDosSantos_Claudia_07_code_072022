@@ -4,6 +4,6 @@ export interface userId {
 }
 
 export interface roles {
-    admin: boolean;
-    user: boolean
+    admin: 'Admin';
+    user: 'User'
 }

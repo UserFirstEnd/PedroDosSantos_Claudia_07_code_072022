@@ -6,12 +6,14 @@ import { environment } from "src/environments/environment";
 import { token } from "../auth-form/token/token";
 import { UserIdService } from "../auth-form/user/user.service";
 import { PostListComponent } from "./components/post-list/post-list.component";
+import { User } from "../auth-form/models/user.model";
 
 @Injectable()
 export class PostsService {
 
     token!: token;
     posts$ = new Subject<Post[]>();
+    user$!: Observable<User>
 
     constructor(private http: HttpClient,
         private userIdService: UserIdService) { }
@@ -27,7 +29,7 @@ export class PostsService {
     }
 
     getPostById(id: string): Observable<Post> {
-        return this.http.get<Post>(`${environment.apiUrl}/posts/${id}`);
+        return this.http.get<Post>(`${environment.apiUrl}/posts/${id}/`);
     }
 
     addPost(post: Post, image: File) {
@@ -38,13 +40,25 @@ export class PostsService {
     }
 
     modifyPost(id: string, post: Post, image: string | File) {
-        if (typeof image === 'string') {
-            return this.http.put<{ message: string }>(`http://localhost:3000/api/posts/${id}`, post);
+        const userRole = this.userIdService.getRole();
+        if (userRole != 'Admin') {
+            if (typeof image === 'string') {
+                return this.http.put<{ message: string }>(`http://localhost:3000/api/posts/${id}`, post);
+            } else {
+                const formData = new FormData();
+                formData.append('post', JSON.stringify(post));
+                formData.append('image', image);
+                return this.http.put<{ message: string }>(`http://localhost:3000/api/posts/${id}`, formData);
+            }
         } else {
-            const formData = new FormData();
-            formData.append('post', JSON.stringify(post));
-            formData.append('image', image);
-            return this.http.put<{ message: string }>(`http://localhost:3000/api/posts/${id}`, formData);
+            if (typeof image === 'string') {
+                return this.http.put<{ message: string }>(`http://localhost:3000/api/posts/admin/${id}`, post);
+            } else {
+                const formData = new FormData();
+                formData.append('post', JSON.stringify(post));
+                formData.append('image', image);
+                return this.http.put<{ message: string }>(`http://localhost:3000/api/posts/admin/${id}`, formData);
+            }
         }
     }
 
@@ -62,15 +76,5 @@ export class PostsService {
             map(like => like),
             catchError(Error => throwError(() => new Error('test')))
         )
-    }
-
-    dislikePost(id: string, dislike: boolean) {
-        return this.http.post<{ message: string }>(
-            `${environment.apiUrl}/posts/` + id + '/like',
-            { userId: this.userIdService.getUserId(), like: dislike ? -1 : 0 }
-        ).pipe(
-            map(dislike => dislike),
-            catchError(Error => throwError(() => new Error('test')))
-        );
     }
 }

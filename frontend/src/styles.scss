@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-*{
+* {
     font-family: "Lato", sans-serif;
 }
+
 html,
 body {
     height: 100%;
@@ -21,7 +22,7 @@ a {
         padding: 20px;
     }
     mat-toolbar {
-        background-color: #FFD7D7;
+        background-color: #ffd7d7;
     }
 }
 
@@ -34,7 +35,6 @@ a {
 
 //post-container
 .post-container {
-    display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -46,6 +46,20 @@ a {
         padding: 10px;
         width: 100%;
         margin-bottom: 10px;
-        background-color: #FFD7D7;
+        background-color: #ffd7d7;
+    }
+    @media (max-width: 838px) {
+        display: flex;
+        align-items: center;
+        top: 10%;
+        width: 100%;
+        position: relative;
+        justify-content: center;
+    }
+    @media (min-width: 1250px) {
+        width: 10%;
+    }
+    @media (min-width: 1300px) {
+        width: 8%;
     }
 }

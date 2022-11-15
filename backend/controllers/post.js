@@ -30,7 +30,6 @@ exports.likePost = (req, res, next) => {
         case 0:
             //the user who liked has already liked, if so remove 1 like
             Post.findOne({ _id: req.params.id })
-                //console.log(_id)
                 .then((post) => {
                     if (post.usersLiked.find(user => user === req.body.userId)) {
                         Post.updateOne({ _id: req.params.id }, {
@@ -47,22 +46,7 @@ exports.likePost = (req, res, next) => {
                                 return res.status(400).json({ error: error });
                             });
                     }
-                    //the user who disliked has already disliked, if so remove 1 dislike
-                    if (post.usersDisliked.find(user => user === req.body.userId)) {
-                        Post.updateOne({ _id: req.params.id }, {
-                            $inc: { dislikes: -1 },
-                            $pull: { usersDisliked: req.body.userId },
-                            _id: req.params.id
-                        })
-                            .then(() => {
-                                return res.status(201).json({ message: '- 1 Dislike !' });
-                            })
-                            .catch((error) => {
-                                return res.status(400).json({ error: error });
-                            });
-                    }
                 })
-                .catch((error) => { return res.status(404).json({ error: error }); });
             break;
 
         case 1:
@@ -80,23 +64,6 @@ exports.likePost = (req, res, next) => {
                     res.status(400).json({ error: error });
                 });
             break;
-
-        case -1:
-            //+ 1 dislike
-            Post.updateOne({ _id: req.params.id }, {
-                $inc: { dislikes: 1 },
-                $push: { usersDisliked: req.body.userId },
-                _id: req.params.id
-            })
-                .then(() => {
-                    return res.status(201).json({ message: '+ 1 Dislike !' });
-                })
-                .catch((error) => {
-                    return res.status(400).json({ error: error });
-                });
-            break;
-        default:
-            return console.error({ error: error });
     }
 };
 
@@ -140,8 +107,6 @@ exports.modifyPost = (req, res, next) => {
         .catch((error) => {
             return res.status(400).json({ error: error });
         });
-        console.log(req.body)
-    console.log(req.auth)
 };
 
 /// DELETE ONE POST //

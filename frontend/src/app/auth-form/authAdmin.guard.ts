@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment.prod';
-import { token } from './token/token';
+import { PostListComponent } from '../social-network/components/post-list/post-list.component';
 import { TokenService } from './token/token.service';
 import { UserIdService } from './user/user.service';
 
@@ -11,20 +10,21 @@ import { UserIdService } from './user/user.service';
     providedIn: 'root'
 })
 
-export class AuthGuard implements CanActivate {
+export class AuthGuardAdmin implements CanActivate {
 
     constructor(private router: Router,
-        private tokenService: TokenService,
+        private postList: PostListComponent,
         private userService: UserIdService,
         private http: HttpClient) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
 
-        if (this.tokenService.isLogged()) {
+        if (this.userService.getRole() === 'Admin') {
             return true
+        } else {
+            this.postList.logout()
+            return this.router.navigate(['connexion']);
         }
-
-        return this.router.navigate(['connexion']);
     }
 
     

@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, of, switchMap, take, tap } from 'rxjs';
+import { NgToastService } from 'ng-angular-popup';
+import { lastValueFrom, map, Observable, of, switchMap, take, tap } from 'rxjs';
 import { User } from 'src/app/auth-form/models/user.model';
 import { UserIdService } from 'src/app/auth-form/user/user.service';
 import { Post } from '../../models/post.model';
@@ -17,20 +18,22 @@ export class PostListItemComponent implements OnInit {
 
   @Input() post!: Post;
   post$!: Observable<Post>;
-  user!: Observable<User>;
+  //user!: Observable<User>;
   hidden = false;
   role!: string;
   errorMessage!: string;
   userId!: string;
   liked!: boolean;
   disliked!: boolean;
+  likes!: string;
   showDialog = false;
 
   constructor(private postService: PostsService,
     private postList: PostListComponent,
     private userService: UserIdService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private toast: NgToastService) { }
 
   ngOnInit(): void {
     const postId = this.post._id;
@@ -47,15 +50,21 @@ export class PostListItemComponent implements OnInit {
     this.role = this.userService.getRole();
   }
 
-  toggleBadgeVisibility() {
-    this.hidden = !this.hidden;
+  openSuccess() {
+    this.toast.success({ detail:'Success', summary:'This is Success', sticky: true, position:'tr' })
   }
 
   onModify() {
-    this.post$.pipe(
-      take(1),
-      tap(post => this.router.navigate(['posts', post._id])),
-    ).subscribe();
+    let userRole = this.userService.getRole();
+    console.log(userRole)
+    if (userRole === 'Admin') {
+      this.post$.pipe(
+        take(1),
+        tap(post => this.router.navigate(['admin', post._id])),
+      ).subscribe();
+    } else {
+      this.router.navigate(['posts', this.post._id])
+    }
   }
 
   onDelete(_id: any) {
@@ -71,8 +80,9 @@ export class PostListItemComponent implements OnInit {
     );
   }
 
-  onLike() {
+  onLike = () => {
     if (this.disliked) {
+      console.log(this.disliked)
       return;
     }
     this.post$.pipe(
@@ -80,21 +90,8 @@ export class PostListItemComponent implements OnInit {
       switchMap((post: Post) => this.postService.likePost(this.post._id, !this.liked).pipe(
         map(liked => ({ ...post, likes: liked ? post.likes + 1 : post.likes - 1 })),
       )),
+      map(() => (this.postList.ngOnInit())),
     ).subscribe();
-    this.postList.ngOnInit();
-  }
-
-  onDislike() {
-    if (this.liked) {
-      return;
-    }
-    this.post$.pipe(
-      take(1),
-      switchMap((post: Post) => this.postService.dislikePost(post._id, !this.disliked).pipe(
-        map(disliked => ({ ...post, dislikes: disliked ? post.dislikes + 1 : post.dislikes - 1 })),
-      )),
-    ).subscribe();
-    this.postList.ngOnInit();
   }
 }
 

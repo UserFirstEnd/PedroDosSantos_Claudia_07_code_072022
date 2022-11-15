@@ -1,10 +1,15 @@
 mat-card {
     width: 400px;
     margin-bottom: 20px;
+    margin-top: 20px;
+    @media (max-width: 396px) {
+        display: flex;
+        button {
+            margin: 10px;
+        }
+    }
     img {
-        height: 250px;
         object-fit: contain;
-        box-shadow: 1px 1px 1px 1px #4E5166;
     }
     :host {
         display: flex;
@@ -12,14 +17,15 @@ mat-card {
         align-items: flex-start;
     }
     .demo-section {
+        display: flex;
+        justify-content: space-between;
         margin-top: 16px;
+        @media (max-width: 396px) {
+            margin-top: 0px;
+        }
     }
 }
 
 .post-content {
     margin-top: 10px;
-}
-
-.card-container {
-    top: 30%;
 }

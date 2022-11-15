@@ -6,7 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { TokenInterceptorProvider } from './auth-form/token/token.interceptor';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { PostListComponent } from './social-network/components/post-list/post-list.component';
+import { PostsService } from './social-network/social-network.service';
 
 @NgModule({
   declarations: [

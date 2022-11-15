@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../shared/material.module';
 import { AuthServiceService } from './auth-service.service';
 import { SignupConnexionComponent } from './components/signup-connexion/signup-connexion.component';
+import { PostListComponent } from '../social-network/components/post-list/post-list.component';
 
 
 @NgModule({

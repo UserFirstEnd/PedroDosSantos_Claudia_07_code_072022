@@ -17,10 +17,6 @@
             <button mat-button mat-raised-button (click)="onLike()">
                 <span>👍</span>
             </button>
-            <span>{{ post.dislikes }}</span>
-            <button mat-button mat-raised-button (click)="onDislike()">
-                <span>👎</span>
-            </button>
             <button mat-button mat-raised-button (click)="onModify()" *ngIf="userId === post.userId || this.role === 'Admin'">
                 <span>✏️</span>
             </button>

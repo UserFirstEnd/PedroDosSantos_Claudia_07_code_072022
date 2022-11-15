@@ -20,6 +20,8 @@ export class NewPostListItemComponent implements OnInit {
   fileName!: string;
   createdDate!: Date;
   imagePreview!: string;
+  role!: string;
+  userId!: string;
 
   constructor(private route: ActivatedRoute,
     private posts: PostsService,
@@ -51,6 +53,8 @@ export class NewPostListItemComponent implements OnInit {
         }
       }),
     ).subscribe();
+    this.userId = this.userService.getUserId();
+    this.role = this.userService.getRole();
   }
 
   onSubmitForm() {

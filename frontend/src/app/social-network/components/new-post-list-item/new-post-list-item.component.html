@@ -1,6 +1,7 @@
 <nav>
     <div class="post-container" fxLayout="column">
-        <a mat-button mat-raised-button [routerLink]="['/posts']">Retour</a>
+        <a *ngIf="this.role === 'Admin'" mat-button mat-raised-button [routerLink]="['/admin']">Retour</a>
+        <a *ngIf="this.role === 'User'" mat-button mat-raised-button [routerLink]="['/posts']">Retour</a>
     </div>
 </nav>
 <div class="modify-add-post" fxLayoutAlign="center center" fxLayout="column" [formGroup]="postForm" *ngIf="postForm">

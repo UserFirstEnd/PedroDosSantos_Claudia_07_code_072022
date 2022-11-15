@@ -17,17 +17,22 @@ export class UserConnexionComponent implements OnInit {
 
   data!: token;
   formGroup!: FormGroup;
+  role!: string;
 
   constructor(private authService: AuthServiceService,
     private router: Router,
     private tokenService: TokenService,
     private userIdService: UserIdService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.formGroup = new FormGroup({
       email: new FormControl("", [Validators.required]),
       password: new FormControl("", [Validators.required])
     });
+    if (this.role) {
+      this.role = this.userIdService.getRole();
+    }
+    //this.role = this.userIdService.getRole();
   }
 
   loginProcess() {
@@ -35,12 +40,18 @@ export class UserConnexionComponent implements OnInit {
     const password = this.formGroup.get('password')!.value;
     this.authService.login(email, password).subscribe({
       next: data => {
-        console.log(data),
         this.tokenService.saveToken(data),
         this.userIdService.saveUserId(data),
-        this.userIdService.saveRole(data),
+        this.userIdService.saveRole(data)
+        /*if (this.role != 'Admin') {
+          console.log('je suis dans /posts')
         this.router.navigate(['/posts'])
-      },
+      } else {
+        console.log('je suis dans /admin')
+        this.router.navigate(['/admin'])
+      }*/
+      this.router.navigate(['/posts'])
+    },
       error: err => console.log(err)
     });
   }
