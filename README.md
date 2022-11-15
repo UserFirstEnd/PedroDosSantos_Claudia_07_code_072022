@@ -50,7 +50,7 @@ git clone https://github.com/UserFirstEnd/PedroDosSantos_Claudia_07_code_072022.
 
 4 - INSTRUCTIONS
 - Identifiants du compte administrateur :
-- Vous allez trouver les identifiants du compte administrateur le fichier TXT du livrable : PedroDosSantos_Claudia_3_compte_admin_082022.
+- Vous allez trouver les identifiants du compte administrateur dans le fichier TXT du livrable : PedroDosSantos_Claudia_3_compte_admin_082022.
 
 
 # frontend
