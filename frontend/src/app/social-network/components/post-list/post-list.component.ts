@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map, Subscription, Subject, tap, catchError, of } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, map, tap, catchError, of } from 'rxjs';
 import { TokenService } from 'src/app/auth-form/token/token.service';
 import { UserIdService } from 'src/app/auth-form/user/user.service';
 import { Post } from '../../models/post.model';
@@ -18,8 +18,7 @@ export class PostListComponent implements OnInit {
   role!: string;
   errorMsg!: string;
 
-  constructor(private route: ActivatedRoute,
-    private postsService: PostsService,
+  constructor(private postsService: PostsService,
     private tokenService: TokenService,
     private userIdService: UserIdService,
     private router: Router) { }
