@@ -1,9 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgToastService } from 'ng-angular-popup';
-import { lastValueFrom, map, Observable, of, switchMap, take, tap } from 'rxjs';
-import { User } from 'src/app/auth-form/models/user.model';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { map, Observable, switchMap, take, tap } from 'rxjs';
 import { UserIdService } from 'src/app/auth-form/user/user.service';
 import { Post } from '../../models/post.model';
 import { PostsService } from '../../social-network.service';
@@ -19,21 +17,15 @@ export class PostListItemComponent implements OnInit {
   @Input() post!: Post;
   post$!: Observable<Post>;
   //user!: Observable<User>;
-  hidden = false;
   role!: string;
-  errorMessage!: string;
   userId!: string;
   liked!: boolean;
-  disliked!: boolean;
   likes!: string;
-  showDialog = false;
 
   constructor(private postService: PostsService,
     private postList: PostListComponent,
     private userService: UserIdService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private toast: NgToastService) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     const postId = this.post._id;
@@ -41,17 +33,10 @@ export class PostListItemComponent implements OnInit {
       tap(post => {
         if (post.usersLiked.find(user => user === this.userId)) {
           this.liked = true;
-        } else if (post.usersDisliked.find(user => user === this.userId)) {
-          this.disliked = true;
         }
-      })
-    )
+      })),
     this.userId = this.userService.getUserId();
     this.role = this.userService.getRole();
-  }
-
-  openSuccess() {
-    this.toast.success({ detail:'Success', summary:'This is Success', sticky: true, position:'tr' })
   }
 
   onModify() {
@@ -72,7 +57,6 @@ export class PostListItemComponent implements OnInit {
       (resp) => {
         this.postList.ngOnInit();
         console.log(resp);
-        //this.matDialog.open(DialogComponent);
         (error: HttpErrorResponse) => {
           console.log(error);
         }
@@ -81,10 +65,6 @@ export class PostListItemComponent implements OnInit {
   }
 
   onLike = () => {
-    if (this.disliked) {
-      console.log(this.disliked)
-      return;
-    }
     this.post$.pipe(
       take(1),
       switchMap((post: Post) => this.postService.likePost(this.post._id, !this.liked).pipe(
