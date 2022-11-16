@@ -14,7 +14,7 @@ import { TokenInterceptor } from '../auth-form/token/token.interceptor';
     CommonModule,
     SharedModule,//il met à disposition les differents modules de l'application
     RouterModule,
-    HttpClientModule,//pour faire les requetes http. Importé uniquement dans core.module, pas besoin de l'importer partout, car core module est aussi importé qu'une seule
+    HttpClientModule,
   ],
   exports: [ //exports pour pouvoir s'en servir en dehors de ce component
     HeaderComponent

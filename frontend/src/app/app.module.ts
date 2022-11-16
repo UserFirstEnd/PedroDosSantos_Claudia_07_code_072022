@@ -15,8 +15,8 @@ import { TokenInterceptorProvider } from './auth-form/token/token.interceptor';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    CoreModule, //imports pour pouvoir l'utiliser
-    SharedModule,//il met à disposition les differents modules de l'application. à voir si on a besoin !!! impoter plusieurs fois, ne double pas la taille du fichier. On a qu'une seule copie
+    CoreModule,
+    SharedModule
 ],
   providers: [ TokenInterceptorProvider ],
   bootstrap: [AppComponent]

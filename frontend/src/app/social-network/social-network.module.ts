@@ -23,7 +23,7 @@ registerLocaleData(localeFr);
     SharedModule
   ],
   providers: [
-    PostsService,//fera parti uniquement de social-network
+    PostsService,
     { provide: LOCALE_ID, useValue: 'fr-FR'},
     PostListComponent
   ]

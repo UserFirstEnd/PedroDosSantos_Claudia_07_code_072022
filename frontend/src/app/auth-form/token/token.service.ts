@@ -26,7 +26,6 @@ export class TokenService {
     }
 
     getToken() {
-        //à corriger : check getToken
         const token = localStorage['token']
         if(token) return JSON.parse(token);
     }

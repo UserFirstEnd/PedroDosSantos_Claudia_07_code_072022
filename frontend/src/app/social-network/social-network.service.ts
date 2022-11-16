@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http"
-import { catchError, map, Observable, of, Subject, switchMap, tap, throwError } from "rxjs";
+import { catchError, map, Observable, of, Subject, tap, throwError } from "rxjs";
 import { Post } from "./models/post.model";
 import { environment } from "src/environments/environment";
 import { UserIdService } from "../auth-form/user/user.service";
