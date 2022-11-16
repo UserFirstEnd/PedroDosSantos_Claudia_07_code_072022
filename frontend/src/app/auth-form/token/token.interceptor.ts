@@ -1,13 +1,11 @@
 import { HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { TokenService } from './token.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private tokenService: TokenService,
-    private router: Router) {}
+  constructor(private tokenService: TokenService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const token = this.tokenService.getToken();

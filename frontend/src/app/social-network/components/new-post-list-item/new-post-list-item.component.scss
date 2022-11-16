@@ -10,10 +10,8 @@
         display: none;
     }
     img {
+        max-width: 85%;
         padding: 10px;
-        @media (max-width: 838px) {
-            max-width: 85%;
-        }
     }
     .button {
         margin-top: 20px;
