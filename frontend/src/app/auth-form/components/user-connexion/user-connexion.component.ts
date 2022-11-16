@@ -35,15 +35,11 @@ export class UserConnexionComponent implements OnInit {
   loginProcess() {
     const email = this.formGroup.get('email')!.value;
     const password = this.formGroup.get('password')!.value;
-    /*const regexEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
-    if (regexEmail.exec(email) == null) {
-      alert("Email incorrecte !")
-    }*/
     this.authService.login(email, password).subscribe({
       next: data => {
         this.tokenService.saveToken(data),
         this.userIdService.saveUserId(data),
-        this.userIdService.saveRole(data)
+        this.userIdService.saveRole(data),
         this.router.navigate(['/posts'])
       },
       error: err => console.log(err)

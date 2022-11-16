@@ -26,7 +26,7 @@ export class SignupConnexionComponent implements OnInit {
       email: new FormControl("", [Validators.required]),
       password: new FormControl("", [Validators.required])
     });
-  }
+  };
 
   onSignup() {
     const email = this.formGroup.get('email')!.value;
@@ -35,14 +35,14 @@ export class SignupConnexionComponent implements OnInit {
       switchMap(() => this.authService.login(email, password)),
       tap((data) => {
         this.tokenService.saveToken(data),
-        this.userIdService.saveUserId(data),
-        this.userIdService.saveRole(data),
-        this.router.navigate(['/posts']);
+          this.userIdService.saveUserId(data),
+          this.userIdService.saveRole(data),
+          this.router.navigate(['/posts']);
       }),
       catchError(error => {
         this.errorMsg = error.message;
         return EMPTY;
       })
     ).subscribe();
-  }
-}
+  };
+};
