@@ -1,5 +1,3 @@
-import { MonoTypeOperatorFunction } from "rxjs";
-
 export class Post {
   _id!: string;
   userId!: string;
