@@ -4,6 +4,8 @@ mat-card {
     margin-top: 20px;
     @media (max-width: 396px) {
         display: flex;
+        width: 100%;
+        margin-bottom: 5px;
         button {
             margin: 10px;
         }

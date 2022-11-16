@@ -12,9 +12,7 @@ const postSchema = new Schema({
   createdDate: { type: Date, required: true, default: Date.now },
   imageUrl: { type: String, required: true },
   likes: { type: Number, required: true },
-  //dislikes: { type: Number, required: true },
   usersLiked: { type: Array, required: true },
-  //usersDisliked: { type: Array, required: true },
 });
 
 //export of the model to be able to use it

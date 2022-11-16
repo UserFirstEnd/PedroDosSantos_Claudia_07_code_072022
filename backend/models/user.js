@@ -6,11 +6,6 @@ const mongoose = require('mongoose');
 //adds pre-registration validation to make email unique : npm i mongoose-unique-validator
 const uniqueValidator = require('mongoose-unique-validator');
 
-const ROLES = {
-  Admin: "Admin",
-  User: "User"
-}
-
 const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true/*Email unique*/},
   password: { type: String, required: true },
@@ -22,5 +17,3 @@ userSchema.plugin(uniqueValidator);
 
 //export of the model to be able to use it
 module.exports = mongoose.model('User', userSchema);
-
-module.exports.ROLES = ROLES;

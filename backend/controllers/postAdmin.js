@@ -6,7 +6,6 @@ const fs = require('fs');
 
 //MODIFY POST
 exports.modifyPost = (req, res, next) => {
-    console.log(req.params)
     let postObject = {};
     if (req.file) {
         postObject = {

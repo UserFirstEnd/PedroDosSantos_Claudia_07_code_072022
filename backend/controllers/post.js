@@ -7,7 +7,6 @@ const fs = require('fs');
 //SAUCE CREATION
 exports.createPost = (req, res, next) => {
     const postObject = JSON.parse(req.body.post);
-    console.log(req.body.post);
     //remove the ids given by the frontend, we need the id given by the database
     delete postObject._id;
     delete postObject._userId

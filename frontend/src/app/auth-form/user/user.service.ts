@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { userId } from './userId';
+import { User } from '../models/user.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserIdService {
 
-    userId!: userId;
+    userId!: User;
 
     constructor() { }
 

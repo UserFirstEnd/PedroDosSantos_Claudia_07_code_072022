@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../auth-service.service';
-import { token } from '../../token/token';
 import { TokenService } from '../../token/token.service';
 import { UserIdService } from '../../user/user.service';
 
@@ -15,7 +14,6 @@ import { UserIdService } from '../../user/user.service';
 
 export class UserConnexionComponent implements OnInit {
 
-  data!: token;
   formGroup!: FormGroup;
   role!: string;
 

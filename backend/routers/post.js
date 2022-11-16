@@ -20,6 +20,7 @@ router.get('/:id', auth, postCtrl.getOnePost);
 router.put('/:id', auth, multer, postCtrl.modifyPost);
 router.delete('/:id', auth, postCtrl.deletePost);
 
+//CRUD ADMIN
 router.put('/admin/:id', auth, multer, adminPostCtrl.modifyPost);
 
 module.exports = router;

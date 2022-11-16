@@ -1,6 +1,5 @@
 //to be able to create and verify authentication tokens: npm i jsonwebtoken
 const jwt = require('jsonwebtoken');
-//const { ROLES } = require('../models/user');
 
 module.exports = (req, res, next) => {
     try {
@@ -10,8 +9,7 @@ module.exports = (req, res, next) => {
         const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
         const userId = decodedToken.userId;
         req.auth = {
-            userId: userId,
-            //role: ROLES.role
+            userId: userId
         };
         next();
     } catch (error) {

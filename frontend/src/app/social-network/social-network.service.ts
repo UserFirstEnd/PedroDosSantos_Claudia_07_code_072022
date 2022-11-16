@@ -1,19 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http"
-import { catchError, map, mapTo, Observable, of, Subject, switchMap, tap, throwError } from "rxjs";
+import { catchError, map, Observable, of, Subject, switchMap, tap, throwError } from "rxjs";
 import { Post } from "./models/post.model";
 import { environment } from "src/environments/environment";
-import { token } from "../auth-form/token/token";
 import { UserIdService } from "../auth-form/user/user.service";
-import { PostListComponent } from "./components/post-list/post-list.component";
-import { User } from "../auth-form/models/user.model";
 
 @Injectable()
 export class PostsService {
 
-    token!: token;
     posts$ = new Subject<Post[]>();
-    user$!: Observable<User>
 
     constructor(private http: HttpClient,
         private userIdService: UserIdService) { }

@@ -16,7 +16,6 @@ export class PostListItemComponent implements OnInit {
 
   @Input() post!: Post;
   post$!: Observable<Post>;
-  //user!: Observable<User>;
   role!: string;
   userId!: string;
   liked!: boolean;
@@ -41,7 +40,6 @@ export class PostListItemComponent implements OnInit {
 
   onModify() {
     let userRole = this.userService.getRole();
-    console.log(userRole)
     if (userRole === 'Admin') {
       this.post$.pipe(
         take(1),

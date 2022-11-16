@@ -1,5 +1,5 @@
 <nav>
-    <div class="post-container" fxLayout="column">
+    <div class="post-side" fxLayout="column">
         <a *ngIf="this.role === 'Admin'" mat-button mat-raised-button [routerLink]="['/admin']">Retour</a>
         <a *ngIf="this.role === 'User'" mat-button mat-raised-button [routerLink]="['/posts']">Retour</a>
     </div>
@@ -22,7 +22,7 @@
             <input type="file" accept="image/" #imageInput (change)="onAddFile($event)">
             <button mat-button mat-raised-button  (click)="imageInput.click()">Ajouter Image</button>
             <img [src]="imagePreview" *ngIf="imagePreview" style="max-height: 200px;margin-top:10px">
-        <div fxLayoutAlign="center center">
+        <div fxLayoutAlign="center center" class="button">
             <button mat-button mat-raised-button type="submit" (click)="onSubmitForm()">Enregistrer</button>
         </div>
     </mat-card>

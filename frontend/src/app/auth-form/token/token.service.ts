@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { token } from './token';
+import { User } from '../models/user.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TokenService {
 
-    token!: token;
+    token!: User ;
+    
     constructor(private router: Router) { }
 
     saveToken(token: any): void {
