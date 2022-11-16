@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, switchMap, tap } from 'rxjs';
-import { AuthServiceService } from 'src/app/auth-form/auth-service.service'; 
 import { UserIdService } from 'src/app/auth-form/user/user.service';
 import { Post } from '../../models/post.model';
 import { PostsService } from '../../social-network.service';
@@ -17,7 +15,7 @@ export class NewPostListItemComponent implements OnInit {
   mode!: string;
   postForm!: FormGroup;
   post!: Post;
-  fileName!: string;
+  fileName!: string; //revoir
   createdDate!: Date;
   imagePreview!: string;
   role!: string;
@@ -27,8 +25,7 @@ export class NewPostListItemComponent implements OnInit {
     private posts: PostsService,
     private router: Router,
     private userService: UserIdService,
-    private formBuilder: FormBuilder,
-    private http: HttpClient
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
