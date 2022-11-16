@@ -11,14 +11,14 @@ import { PostListComponent } from '../social-network/components/post-list/post-l
   ],
   imports: [
     CommonModule,
-    MaterialModule,//comments va utiliser materialModule
+    MaterialModule,
     ReactiveFormsModule
   ],
   exports: [//on l'exports dans shared, pour que n'importe quel module qui importe shared module, puisse aveoir acces
     MaterialModule,
     ReactiveFormsModule
   ],
-  providers: [//revoir providers
+  providers: [
     PostsService,
     PostListComponent
   ]

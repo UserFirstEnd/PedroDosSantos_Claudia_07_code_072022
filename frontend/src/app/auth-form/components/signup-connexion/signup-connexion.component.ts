@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, switchMap, tap } from 'rxjs';
 import { AuthServiceService } from '../../auth-service.service';
@@ -16,8 +16,7 @@ export class SignupConnexionComponent implements OnInit {
   formGroup!: FormGroup;
   errorMsg!: string;
 
-  constructor(private formBuilder: FormBuilder,
-    private authService: AuthServiceService,
+  constructor(private authService: AuthServiceService,
     private router: Router,
     private tokenService: TokenService,
     private userIdService: UserIdService) { }
@@ -35,7 +34,6 @@ export class SignupConnexionComponent implements OnInit {
     this.authService.createUser(email, password).pipe(
       switchMap(() => this.authService.login(email, password)),
       tap((data) => {
-        console.log(data),
         this.tokenService.saveToken(data),
         this.userIdService.saveUserId(data),
         this.userIdService.saveRole(data),

@@ -21,7 +21,6 @@ export class RolesService {
     }
 
     getRole() {
-        //à corriger : check getToken
         const role = localStorage['role']
         if(role) return JSON.parse(role);
     }

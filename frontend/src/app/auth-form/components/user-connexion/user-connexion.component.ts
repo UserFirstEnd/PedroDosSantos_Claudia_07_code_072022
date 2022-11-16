@@ -32,7 +32,6 @@ export class UserConnexionComponent implements OnInit {
     if (this.role) {
       this.role = this.userIdService.getRole();
     }
-    //this.role = this.userIdService.getRole();
   }
 
   loginProcess() {
@@ -45,15 +44,8 @@ export class UserConnexionComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: data => {
         this.tokenService.saveToken(data),
-          this.userIdService.saveUserId(data),
-          this.userIdService.saveRole(data)
-        /*if (this.role != 'Admin') {
-          console.log('je suis dans /posts')
-        this.router.navigate(['/posts'])
-      } else {
-        console.log('je suis dans /admin')
-        this.router.navigate(['/admin'])
-      }*/
+        this.userIdService.saveUserId(data),
+        this.userIdService.saveRole(data)
         this.router.navigate(['/posts'])
       },
       error: err => console.log(err)

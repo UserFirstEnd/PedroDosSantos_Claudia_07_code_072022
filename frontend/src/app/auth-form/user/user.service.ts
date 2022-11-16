@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { userId } from './userId';
 
 @Injectable({
@@ -9,7 +8,7 @@ export class UserIdService {
 
     userId!: userId;
 
-    constructor(private router: Router) { }
+    constructor() { }
 
     saveUserId(userId: any): void {
         localStorage.setItem('userId', JSON.stringify(userId.userId));
@@ -17,7 +16,6 @@ export class UserIdService {
 
     saveRole(userId: any): void {
         localStorage.setItem('role', JSON.stringify(userId.role));
-        console.log(userId.role)
     }
 
     getUserId() {

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PostListComponent } from '../social-network/components/post-list/post-list.component';
-import { TokenService } from './token/token.service';
 import { UserIdService } from './user/user.service';
 
 @Injectable({
@@ -14,8 +13,7 @@ export class AuthGuardAdmin implements CanActivate {
 
     constructor(private router: Router,
         private postList: PostListComponent,
-        private userService: UserIdService,
-        private http: HttpClient) { }
+        private userService: UserIdService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
 
