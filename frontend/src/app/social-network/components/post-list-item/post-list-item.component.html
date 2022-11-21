@@ -13,10 +13,10 @@
             <span class="post-content">{{ post.description }}</span>
         </mat-card-content>
         <mat-card-actions class="demo-section">
-            <span>{{ post.likes }}</span>
-            <button mat-button mat-raised-button (click)="onLike()">
+            <span>{{ post.likes }}
+            <button [ngStyle]="{ 'background-color': post.likes ? 'green' : 'red' }" mat-button mat-raised-button (click)="onLike()">
                 <span>👍</span>
-            </button>
+            </button></span>
             <button mat-button mat-raised-button (click)="onModify()" *ngIf="userId === post.userId || this.role === 'Admin'">
                 <span>✏️</span>
             </button>

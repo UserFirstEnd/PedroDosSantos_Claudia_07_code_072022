@@ -34,7 +34,7 @@ export class PostListItemComponent implements OnInit {
           this.liked = true;
         }
       })),
-    this.userId = this.userService.getUserId();
+      this.userId = this.userService.getUserId();
     this.role = this.userService.getRole();
   }
 
@@ -71,5 +71,6 @@ export class PostListItemComponent implements OnInit {
       map(() => (this.postList.ngOnInit())),
     ).subscribe();
   }
+
 }
 

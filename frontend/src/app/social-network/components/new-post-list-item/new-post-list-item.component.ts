@@ -29,11 +29,8 @@ export class NewPostListItemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //this.urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/;
-    this.route.params.pipe(//l operateur pipe pour modifier les emission de l'observable
-      //valueChanges est un observable */
+    this.route.params.pipe(
       switchMap(params => {
-        /*, Validators.pattern(this.urlRegex)*/
         if (!params['id']) {
           this.mode = 'new';
           this.initEmptyForm();
